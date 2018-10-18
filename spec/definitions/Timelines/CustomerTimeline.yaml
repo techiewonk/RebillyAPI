@@ -25,6 +25,8 @@ properties:
       - payment-card-expired
       - payment-instrument-created
       - payment-instrument-deactivated
+      - customer-blacklisted
+      - customer-payment-card-blacklisted
   triggeredBy:
     description: Shows who or what triggered the Timeline message
     type: string
