@@ -13,7 +13,7 @@ properties:
   orderType:
     description: |
       Specifies the type of order, a subscription or a one-time purchase.
-      
+
     type: string
     enum:
       - "subscription-order"
@@ -50,6 +50,22 @@ properties:
         quantity:
           description: Number of units of the product on the given plan
           type: integer
+  billingAnchor:
+    description: |
+      The billing anchor settings to override plan settings. To use plan settings, set `null`.
+      To use multiple plans in one subscription they all must have the same billing period,
+      this property allows to subscribe to different plans.
+    allOf:
+      - $ref: "#/definitions/PlanBillingAnchor"
+  recurringInterval:
+    type: object
+    description: |
+      The recurring interval to override plan settings. To use plan settings, set `null`.
+      To use multiple plans in one subscription they all must have the same recurring period length,
+      this property allows to subscribe to different plans.
+    properties:
+      periodAnchorInstruction:
+        $ref: "#/definitions/ServicePeriodAnchorInstruction"
   deliveryAddress:
     description: Delivery address
     allOf:
