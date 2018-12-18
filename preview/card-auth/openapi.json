@@ -5650,8 +5650,9 @@
                     "type": "number",
                     "format": "double"
                   },
-                  "redirectUrls": {
-                    "$ref": "#/components/schemas/RedirectUrls"
+                  "redirectUrl": {
+                    "description": "Redirect URL",
+                    "type": "string"
                   }
                 }
               }
