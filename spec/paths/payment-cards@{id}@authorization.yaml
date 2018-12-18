@@ -28,6 +28,9 @@ post:
               description: Amount
               type: number
               format: double
+            redirectUrl:
+              description: Redirect URL
+              type: string
     description: Payment Card resource
     required: true
   responses:
