@@ -12344,6 +12344,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/AuthTransactionLink"
+                },
+                {
+                  "$ref": "#/components/schemas/ApprovalUrlLink"
                 }
               ]
             }
