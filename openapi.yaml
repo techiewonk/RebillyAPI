@@ -10273,8 +10273,8 @@ components:
           readOnly: true
           allOf:
             - $ref: '#/components/schemas/ResourceId'
-        currentInvoiceId:
-          description: Unique id for the current invoice (the most recently issued invoice). It might not be `paid` yet.
+        recentInvoiceId:
+          description: Unique id for the most recently issued invoice. It might not be `paid` yet.
           readOnly: true
           allOf:
             - $ref: '#/components/schemas/ResourceId'
