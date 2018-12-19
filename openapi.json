@@ -12019,7 +12019,8 @@
           "ePay.bg",
           "iDEAL",
           "domestic-cards",
-          "Giropay"
+          "Giropay",
+          "CashToCode"
         ]
       },
       "Payment": {

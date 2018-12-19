@@ -8883,6 +8883,7 @@ components:
         - iDEAL
         - domestic-cards
         - Giropay
+        - CashToCode
     Payment:
       type: object
       required:
