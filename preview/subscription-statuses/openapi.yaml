@@ -10261,7 +10261,7 @@ components:
           type: string
           readOnly: true
           enum:
-            - draft
+            - pending
             - active
             - canceled
             - churned
