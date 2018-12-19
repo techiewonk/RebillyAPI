@@ -13983,6 +13983,15 @@
               }
             ]
           },
+          "currentInvoiceId": {
+            "description": "Unique id for the current invoice (the most recently issued invoice). It might not be `paid` yet.",
+            "readOnly": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
           "items": {
             "type": "array",
             "minItems": 1,
