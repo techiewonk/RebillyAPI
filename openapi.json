@@ -15050,7 +15050,8 @@
               "gateway-response-received",
               "transaction-scheduled-time-changed",
               "transaction-rules-processed",
-              "transaction-waiting-capture"
+              "transaction-waiting-capture",
+              "transaction-captured"
             ]
           },
           "triggeredBy": {
