@@ -7031,6 +7031,7 @@ components:
         method:
           description: The method of payment instrument
           type: string
+          readOnly: true
           enum:
             - bank-account
         bankName:
@@ -9015,6 +9016,7 @@ components:
         method:
           description: The method of payment instrument.
           type: string
+          readOnly: true
           enum:
             - payment-card
         pan:
@@ -9389,6 +9391,7 @@ components:
         method:
           description: The method of payment instrument.
           type: string
+          readOnly: true
           enum:
             - paypal
         customerId:

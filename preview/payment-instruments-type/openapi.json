@@ -9271,6 +9271,7 @@
           "method": {
             "description": "The method of payment instrument",
             "type": "string",
+            "readOnly": true,
             "enum": [
               "bank-account"
             ]
@@ -12228,6 +12229,7 @@
           "method": {
             "description": "The method of payment instrument.",
             "type": "string",
+            "readOnly": true,
             "enum": [
               "payment-card"
             ]
@@ -12804,6 +12806,7 @@
           "method": {
             "description": "The method of payment instrument.",
             "type": "string",
+            "readOnly": true,
             "enum": [
               "paypal"
             ]
