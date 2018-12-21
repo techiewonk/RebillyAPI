@@ -5,6 +5,12 @@ properties:
     readOnly: true
     allOf:
       - $ref: "#/components/schemas/ResourceId"
+  method:
+    description: The method of payment instrument.
+    type: string
+    readOnly: true
+    enum:
+      - paypal
   customerId:
     description: The Customer's ID.
     allOf:

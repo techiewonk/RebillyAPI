@@ -9,6 +9,12 @@ properties:
     description: The Customer's ID.
     allOf:
       - $ref: "#/components/schemas/ResourceId"
+  method:
+    description: The method of payment instrument
+    type: string
+    readOnly: true
+    enum:
+      - bank-account
   bankName:
     description: Bank's name.
     type: string
