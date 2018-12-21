@@ -7028,6 +7028,12 @@ components:
           description: The Customer's ID.
           allOf:
             - $ref: '#/components/schemas/ResourceId'
+        method:
+          description: The method of payment instrument
+          type: string
+          readOnly: true
+          enum:
+            - bank-account
         bankName:
           description: Bank's name.
           type: string
@@ -9007,6 +9013,12 @@ components:
           description: The Customer's ID. Required if card is creating not from Token
           allOf:
             - $ref: '#/components/schemas/ResourceId'
+        method:
+          description: The method of payment instrument.
+          type: string
+          readOnly: true
+          enum:
+            - payment-card
         pan:
           description: The card PAN (Primary Account Number). Required if card is creating not from Token
           type: string
@@ -9376,6 +9388,12 @@ components:
           readOnly: true
           allOf:
             - $ref: '#/components/schemas/ResourceId'
+        method:
+          description: The method of payment instrument.
+          type: string
+          readOnly: true
+          enum:
+            - paypal
         customerId:
           description: The Customer's ID.
           allOf:
