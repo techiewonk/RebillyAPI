@@ -961,6 +961,58 @@
       }
     },
     "/bank-accounts": {
+      "post": {
+        "tags": [
+          "Bank Accounts"
+        ],
+        "summary": "Create a Bank Account",
+        "description": "Create a Bank Account\n",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/BankAccount"
+        },
+        "responses": {
+          "201": {
+            "description": "Bank Account was created",
+            "headers": {
+              "Rate-Limit-Limit": {
+                "$ref": "#/components/headers/Rate-Limit-Limit"
+              },
+              "Rate-Limit-Remaining": {
+                "$ref": "#/components/headers/Rate-Limit-Remaining"
+              },
+              "Rate-Limit-Reset": {
+                "$ref": "#/components/headers/Rate-Limit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccount"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AccessForbidden"
+          },
+          "422": {
+            "description": "Invalid data was sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidError"
+                }
+              }
+            }
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "PHP",
+            "source": "$bankAccountForm = new Rebilly\\Entities\\BankAccount();\n$bankAccountForm->setCustomerId('customerId');\n$bankAccountForm->setRoutingNumber('0123456');\n$bankAccountForm->setAccountNumber('0123456');\n$bankAccountForm->setAccountType('checking');\n$bankAccountForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\ntry {\n    $bankAccount = $client->bankAccounts()->create($bankAccountForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
+          }
+        ]
+      },
       "get": {
         "tags": [
           "Bank Accounts"
@@ -1017,58 +1069,6 @@
           {
             "lang": "PHP",
             "source": "$bankAccounts = $client->bankAccounts()->search([\n    'filter' => 'customerId:testId',\n]);\n"
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Bank Accounts"
-        ],
-        "summary": "Create a Bank Account",
-        "description": "Create a Bank Account\n",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/BankAccount"
-        },
-        "responses": {
-          "201": {
-            "description": "Bank Account was created",
-            "headers": {
-              "Rate-Limit-Limit": {
-                "$ref": "#/components/headers/Rate-Limit-Limit"
-              },
-              "Rate-Limit-Remaining": {
-                "$ref": "#/components/headers/Rate-Limit-Remaining"
-              },
-              "Rate-Limit-Reset": {
-                "$ref": "#/components/headers/Rate-Limit-Reset"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccount"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/AccessForbidden"
-          },
-          "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
-          }
-        },
-        "x-code-samples": [
-          {
-            "lang": "PHP",
-            "source": "$bankAccountForm = new Rebilly\\Entities\\BankAccount();\n$bankAccountForm->setCustomerId('customerId');\n$bankAccountForm->setRoutingNumber('0123456');\n$bankAccountForm->setAccountNumber('0123456');\n$bankAccountForm->setAccountType('checking');\n$bankAccountForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\ntry {\n    $bankAccount = $client->bankAccounts()->create($bankAccountForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
           }
         ]
       }
@@ -1498,7 +1498,7 @@
           "Contacts"
         ],
         "summary": "Retrieve a list of contacts",
-        "description": "Retrieve a list of contacts\n",
+        "description": "Retrieve a list of contacts.  This may be useful\nwhen giving the customer a choice between previous\naddresses they've used before.\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/collectionLimit"
@@ -1557,7 +1557,7 @@
           "Contacts"
         ],
         "summary": "Create a contact",
-        "description": "Create a contact\n",
+        "description": "Contacts are created automatically by data passed to the \ncontact-related hashes within the customer, invoice,\npayment instrument (like payment card), subscriptions,\nand more.    \n<div class=\"alert alert-warning\">\n  Note: This method should almost never be used.\n  Please check with us on your use case before using it.\n</div>  \n",
         "requestBody": {
           "$ref": "#/components/requestBodies/Contact"
         },
@@ -2774,6 +2774,16 @@
                   "-id",
                   "email",
                   "-email",
+                  "averageValue",
+                  "-averageValue",
+                  "paymentCount",
+                  "-paymentCount",
+                  "lastPaymentTime",
+                  "-lastPaymentTime",
+                  "lifetimeRevenue",
+                  "-lifetimeRevenue",
+                  "invoiceCount",
+                  "-invoiceCount",
                   "createdTime",
                   "-createdTime",
                   "updatedTime",
@@ -2853,8 +2863,8 @@
         "tags": [
           "Customers"
         ],
-        "summary": "Create a customer",
-        "description": "Create a customer\n",
+        "summary": "Create a customer (without an ID)",
+        "description": "Create a customer without a predefined ID.  \nThe customer's primary address\nwill be used as the default address for payment\ninstruments, subscriptions and invoices if none\nare provided.\n\nIf you wish to create the customer with a predefined\nID (which we recommend to prevent duplication), you \nmay use our `PUT` request described below.\n",
         "requestBody": {
           "$ref": "#/components/requestBodies/Customer"
         },
@@ -9250,6 +9260,9 @@
       },
       "BankAccount": {
         "type": "object",
+        "required": [
+          "customerId"
+        ],
         "properties": {
           "id": {
             "description": "The bank account identifier string",
@@ -12122,14 +12135,6 @@
               }
             ]
           },
-          "createdBy": {
-            "description": "The process that created this payment",
-            "type": "string"
-          },
-          "updatedBy": {
-            "description": "The process that updated this payment",
-            "type": "string"
-          },
           "status": {
             "description": "Payment status",
             "type": "string",
@@ -12152,6 +12157,7 @@
               "approved",
               "declined",
               "canceled",
+              "abandoned",
               "unknown"
             ]
           },
@@ -12208,6 +12214,9 @@
       },
       "PaymentCard": {
         "type": "object",
+        "required": [
+          "customerId"
+        ],
         "properties": {
           "id": {
             "description": "The card identifier string",
@@ -12219,7 +12228,7 @@
             ]
           },
           "customerId": {
-            "description": "The Customer's ID. Required if card is creating not from Token",
+            "description": "The Customer's ID.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/ResourceId"
@@ -12235,7 +12244,7 @@
             ]
           },
           "pan": {
-            "description": "The card PAN (Primary Account Number). Required if card is creating not from Token",
+            "description": "The card PAN (Primary Account Number). Required if card is not being created from Token. This is write-only.",
             "type": "string"
           },
           "bin": {
@@ -12250,19 +12259,19 @@
             "readOnly": true
           },
           "expYear": {
-            "description": "Card's expiry year. Required if card is creating not from Token",
+            "description": "Card's expiry year. Required if card is not being created from Token.",
             "type": "integer"
           },
           "expMonth": {
-            "description": "Card's expiry month. Required if card is creating not from Token",
+            "description": "Card's expiry month. Required if card is not being created from Token.",
             "type": "integer"
           },
           "cvv": {
-            "description": "Card's cvv (card verification value). Required if card is creating not from Token",
+            "description": "Card's cvv (card verification value). Required if card is not being created from Token.",
             "type": "string"
           },
           "billingAddress": {
-            "description": "The Billing Address. Required if card is creating not from Token",
+            "description": "The Billing Address. Required if card is not being created from Token.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -12270,16 +12279,16 @@
             ]
           },
           "token": {
-            "description": "PaymentCardToken. Use without any other fields",
+            "description": "PaymentCardToken. Use without any other fields except for `customerId`.",
             "type": "string"
           },
           "panFingerprint": {
-            "description": "A unique value to identify the PAN regardless of expiry",
+            "description": "A unique value to identify the PAN regardless of expiration dates.  It contains alphanumeric values.",
             "type": "string",
             "readOnly": true
           },
           "status": {
-            "description": "Payment Card status",
+            "description": "Payment Card status.  When a card is `active` it means it has been used at least once for an approved transaction.  \nTo remove a card from being in use, set it as `deactivated` (see the deactivation endpoint).\n",
             "type": "string",
             "readOnly": true,
             "enum": [
