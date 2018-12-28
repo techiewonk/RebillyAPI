@@ -592,14 +592,7 @@
             "$ref": "#/components/responses/Conflict"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -731,14 +724,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -852,14 +838,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -996,14 +975,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -1180,14 +1152,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -1841,14 +1806,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -2030,14 +1988,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -2161,17 +2112,10 @@
             "$ref": "#/components/responses/NotFound"
           },
           "409": {
-            "description": "Coupon was redeemed already and cannot be changed"
+            "$ref": "#/components/responses/Conflict"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -2249,14 +2193,7 @@
             }
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -2356,14 +2293,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -2481,14 +2411,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -2715,14 +2638,7 @@
             }
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -3117,14 +3033,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -3162,7 +3071,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "409": {
-            "description": "Lead Source cannot be deleted"
+            "$ref": "#/components/responses/Conflict"
           }
         },
         "x-code-samples": [
@@ -3278,14 +3187,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -3469,14 +3371,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -3591,14 +3486,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -3916,14 +3804,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -4199,14 +4080,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -4344,14 +4218,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -4573,14 +4440,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -4947,14 +4807,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -5054,14 +4907,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -5163,14 +5009,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -5245,7 +5084,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "409": {
-            "description": "ResetPasswordToken has related resources and cannot be deleted"
+            "$ref": "#/components/responses/Conflict"
           }
         }
       }
@@ -5374,14 +5213,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -5527,14 +5359,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       },
@@ -5697,14 +5522,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -5753,14 +5571,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -5910,14 +5721,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -6103,14 +5907,7 @@
             "$ref": "#/components/responses/Conflict"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -6228,14 +6025,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json; charset=utf-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -6318,14 +6108,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -6524,14 +6307,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -6580,14 +6356,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -6682,14 +6451,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -6807,14 +6569,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -7736,7 +7491,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "409": {
-            "description": "Cancellaton cannot be deleted"
+            "$ref": "#/components/responses/Conflict"
           }
         }
       }
@@ -8002,14 +7757,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -8127,14 +7875,7 @@
             "$ref": "#/components/responses/NotFound"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -8194,14 +7935,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -8261,14 +7995,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -8419,14 +8146,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -8544,14 +8264,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         },
         "x-code-samples": [
@@ -8997,14 +8710,7 @@
             "$ref": "#/components/responses/AccessForbidden"
           },
           "422": {
-            "description": "Invalid data was sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidError"
-                }
-              }
-            }
+            "$ref": "#/components/responses/InvalidDataError"
           }
         }
       }
@@ -10660,10 +10366,19 @@
           "status": {
             "type": "integer",
             "minimum": 100,
-            "maximum": 600
+            "maximum": 600,
+            "description": "The HTTP status code."
           },
           "error": {
             "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "A URI reference [[RFC3986](https://tools.ietf.org/html/rfc3986)] that identifies the problem type. It should provide human-readable documentation for the problem type. When this member is not present, its value is assumed to be \"about:blank\"."
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization."
           }
         }
       },
@@ -10851,11 +10566,9 @@
           {
             "type": "object",
             "properties": {
-              "details": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+              "invalidFields": {
+                "type": "object",
+                "description": "An object keyed by the invalid property field names.  Dot notation is used for nested object property names."
               }
             }
           }
