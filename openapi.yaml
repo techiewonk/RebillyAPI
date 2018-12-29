@@ -10144,6 +10144,12 @@ components:
         status:
           type: string
           readOnly: true
+          enum:
+            - pending
+            - active
+            - canceled
+            - churned
+            - paused
         customerId:
           description: Unique id for each customer
           allOf:

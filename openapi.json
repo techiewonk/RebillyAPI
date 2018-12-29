@@ -13702,7 +13702,14 @@
           },
           "status": {
             "type": "string",
-            "readOnly": true
+            "readOnly": true,
+            "enum": [
+              "pending",
+              "active",
+              "canceled",
+              "churned",
+              "paused"
+            ]
           },
           "customerId": {
             "description": "Unique id for each customer",
