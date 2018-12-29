@@ -14935,7 +14935,8 @@
       },
       "RedirectUrls": {
         "type": "object",
-        "description": "The redirect URIs",
+        "deprecated": true,
+        "description": "The redirect URIs, now deprecated.  Use `redirectUrl` instead.",
         "required": [
           "error",
           "success",
@@ -15425,6 +15426,16 @@
               }
             ]
           },
+          "notificationUrl": {
+            "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent \nwhen the transaction's result is finalized. Do not trust the notification; \nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code.\n",
+            "type": "string",
+            "format": "url"
+          },
+          "redirectUrl": {
+            "description": "The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.",
+            "type": "string",
+            "format": "url"
+          },
           "redirectUrls": {
             "$ref": "#/components/schemas/RedirectUrls"
           },
@@ -15482,7 +15493,7 @@
             "readOnly": true
           },
           "orderId": {
-            "description": "The transactions's order ID",
+            "description": "The transactions's order ID.  This ID must be unique within a 24 hour period.",
             "type": "string"
           },
           "customFields": {
