@@ -4,6 +4,7 @@ required:
   - customerId
   - currency
   - amount
+  - type
 properties:
   id:
     description: The payment identifier string
@@ -25,34 +26,60 @@ properties:
     description: The payment amount
     type: number
     format: double
-  scheduledTime:
-    description: The time the payment is scheduled for collection
+  type:
+    description: |
+      The type of transaction requested.  It defaults to type `sale` for backwards compatibility.
+      You should always include the type within your API request.
+      This supports a limited subset of Transaction types.  To refund or void, use the refund endpoint.
+      To `capture` use the `sale` endpoint.  It will capture if there are any eligible
+      transactions of type `authorize` that can be captured.
     type: string
-    format: date-time
+    enum:
+      - authorize
+      - sale
+      - credit
   invoiceIds:
-    description: The array of invoice identifiers
+    description: | 
+      The array of invoice identifiers.  It's important to note that the transaction
+      amount can be more or less than the combined invoice amounts.  If the transaction
+      is a type `sale` and it is `approved` it will be applied to these invoices in
+      the order of the first issued invoice to the most recently issued invoice.  If
+      there are enough funds to fully pay an invoice, the invoice status will be marked
+      as paid.
     type: array
     items:
       $ref: "#/components/schemas/ResourceId"
+  paymentInstrument:
+    description: |
+      If not supplied, Rebilly will use the Customer's default payment instrument. 
+      If there is no default payment instrument for the Customer, then there
+      will be an API error.
+    allOf:
+      - $ref: "#/components/schemas/PaymentInstrument"
+  orderId:
+    description: |
+      The identifier string used to prevent duplicate requests and used with 3rd party gateways.
+      If the orderId is not supplied, we will generate one for you, and it will probably match
+      the transactionId.  If an `orderId` is supplied with the request, we we will ensure
+      the same exact `orderId` has not been used within the past 24 hours.  If it has, we will
+      prevent the transaction from being processed because it is a duplicate.
+    allOf:
+      - $ref: "#/components/schemas/ResourceId"
   description:
     description: The payment description
     type: string
     maxLength: 255
   retryInstruction:
     $ref: "#/components/schemas/PaymentRetry"
-  retryNumber:
-    readOnly: true
-    description: The position in the sequence of retries
-    type: integer
-  retriedPaymentId:
-    readOnly: true
-    description: The retried payment ID
-    allOf:
-      - $ref: "#/components/schemas/ResourceId"
+  scheduledTime:
+    description: |
+      You may optionally schedule a transaction for future processing.  This is NOT recommended.  
+      If you do decide to supply this information, it is the time the the transaction is 
+      scheduled for processing.
+    type: string
+    format: date-time
   customFields:
     $ref: "#/components/schemas/ResourceCustomFields"
-  paymentInstrument:
-    $ref: "#/components/schemas/PaymentInstrument"
   billingAddress:
     description: Billing Address
     allOf:

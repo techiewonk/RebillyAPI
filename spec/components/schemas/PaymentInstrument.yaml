@@ -6,3 +6,12 @@ discriminator:
 properties:
   method:
     $ref: "#/components/schemas/Method"
+  gatewayAccountId:
+    description: |
+      Rebilly will select the appropriate payment gateway account for the transaction based on 
+      the properties of the transaction and the gateway-account-requested event rules configurations.
+      If you wish to prevent Rebilly from making the gateway account selection, you may supply a
+      gateway account id here, and it will be used instead.  Only use this field if you
+      intend to override the settings.
+    allOf:
+      - $ref: "#/components/schemas/ResourceId"

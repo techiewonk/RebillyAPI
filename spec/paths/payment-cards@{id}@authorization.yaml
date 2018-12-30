@@ -3,7 +3,8 @@ parameters:
 post:
   tags:
     - Payment Cards
-  summary: Authorize a Payment Card
+  summary: Authorize a Payment Card (use `/payments` endpoint instead)
+  deprecated: true
   description: |
     Authorize a Payment Card
   requestBody:

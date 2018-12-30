@@ -26,7 +26,8 @@ properties:
       - never-sent
       - pending
       - sending
-      - suspended
+      - waiting-approval
+      - offsite
       - timeout
       - waiting-capture
       - waiting-refund
@@ -41,16 +42,16 @@ properties:
       - declined
       - unknown
   amount:
-    description: The transactions's amount
+    description: The transaction's amount
     type: number
     format: double
     readOnly: true
   currency:
-    description: The transactions's currency
+    description: The transaction's currency
     type: string
     readOnly: true
   parentTransactionId:
-    description: The transactions's parent ID
+    description: The transaction's parent ID
     allOf:
       - $ref: "#/components/schemas/ResourceId"
     readOnly: true
@@ -86,7 +87,7 @@ properties:
     type: integer
     readOnly: true
   gatewayAccountId:
-    description: The transactions's Gateway Account ID
+    description: The transaction's Gateway Account ID
     allOf:
       - $ref: "#/components/schemas/ResourceId"
     readOnly: true
@@ -303,11 +304,11 @@ properties:
       follow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`
       HTTP status code.
     type: string
-    format: url
+    format: uri
   redirectUrl:
     description: The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.
     type: string
-    format: url
+    format: uri
   redirectUrls:
     $ref: "#/components/schemas/RedirectUrls"
   retryInstruction:

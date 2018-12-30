@@ -34,7 +34,7 @@ put:
     $ref: "#/components/requestBodies/Payment"
   responses:
     201:
-      description: Payment was processed
+      description: Transaction was processed
       headers:
         Rate-Limit-Limit:
           $ref: "#/components/headers/Rate-Limit-Limit"
@@ -47,8 +47,9 @@ put:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/Payment"
+              $ref: "#/components/schemas/Transaction"
     202:
+# todo check the 202 behavior
       description: Payment was accepted
       headers:
         Rate-Limit-Limit:

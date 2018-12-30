@@ -54,15 +54,16 @@ post:
     $ref: "#/components/requestBodies/Payment"
   responses:
     201:
-      description: Payment was processed
+      description: Transaction was processed
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: "#/components/schemas/Payment"
+              $ref: "#/components/schemas/Transaction"
+# todo check the 202 behavior
     202:
-      description: Payment was accepted
+      description: Payment was accepted 
       content:
         application/json:
           schema:
