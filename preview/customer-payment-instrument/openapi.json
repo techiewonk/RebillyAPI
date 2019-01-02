@@ -11726,40 +11726,40 @@
         "type": "string",
         "description": "The payment method",
         "enum": [
+          "payment-card",
           "ach",
           "cash",
-          "payment-card",
           "paypal",
           "Alipay",
-          "China UnionPay",
-          "Flexepin",
-          "Gpaysafe",
-          "Jeton",
-          "OchaPay",
-          "SMSVoucher",
-          "UPayCard",
-          "WeChat Pay",
-          "AstroPay Card",
+          "AstroPay-Card",
           "bank-transfer",
           "bitcoin",
           "Boleto",
           "cash-deposit",
+          "CashToCode",
+          "China-UnionPay",
+          "domestic-cards",
           "echeck",
+          "EPS",
+          "ePay-bg",
+          "Flexepin",
+          "Giropay",
+          "Gpaysafe",
+          "iDEAL",
           "instant-bank-transfer",
           "invoice",
+          "Jeton",
+          "Klarna",
           "miscellaneous",
+          "OchaPay",
           "online-bank-transfer",
           "phone",
-          "voucher",
           "QQPay",
-          "Klarna",
-          "Skrill Rapid Transfer",
-          "EPS",
-          "ePay.bg",
-          "iDEAL",
-          "domestic-cards",
-          "Giropay",
-          "CashToCode"
+          "Skrill-Rapid-Transfer",
+          "SMSVoucher",
+          "UPayCard",
+          "voucher",
+          "WeChat-Pay"
         ]
       },
       "Payment": {
@@ -12111,6 +12111,215 @@
           }
         }
       },
+      "ach": {
+        "description": "ACH payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          },
+          {
+            "type": "object",
+            "required": [
+              "bankAccountId"
+            ],
+            "properties": {
+              "bankAccountId": {
+                "description": "The bank account identifier string",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResourceId"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "Alipay": {
+        "description": "Alipay payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "AstroPay-Card": {
+        "description": "AstroPay Card payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "bitcoin": {
+        "description": "Bitcoin payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "Boleto": {
+        "description": "Boleto payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "cash": {
+        "description": "Cash payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "receivedBy": {
+                "description": "The receiver's name",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "China-UnionPay": {
+        "description": "China UnionPay payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "ePay-bg": {
+        "description": "ePay.bg payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "EPS": {
+        "description": "EPS payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "Flexepin": {
+        "description": "Flexepin payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "iDEAL": {
+        "description": "iDEAL payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "Klarna": {
+        "description": "Klarna payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "payment-card": {
+        "description": "Payment card payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          },
+          {
+            "type": "object",
+            "required": [
+              "paymentCardId"
+            ],
+            "properties": {
+              "paymentCardId": {
+                "description": "The payment card identifier string",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResourceId"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "paypal": {
+        "description": "PayPal payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          },
+          {
+            "type": "object",
+            "required": [
+              "payPalAccountId"
+            ],
+            "properties": {
+              "payPalAccountId": {
+                "description": "The PayPal account identifier string",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ResourceId"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "QQPay": {
+        "description": "QQPay payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "Skrill-Rapid-Transfer": {
+        "description": "Skrill Rapid Transfer payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "SMSVoucher": {
+        "description": "SMSVoucher payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "UPayCard": {
+        "description": "SMSVoucher payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
+      "WeChat-Pay": {
+        "description": "WeChat Pay payment instrument object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          }
+        ]
+      },
       "PaymentInstrumentValidation": {
         "type": "object",
         "required": [
@@ -12191,119 +12400,6 @@
             }
           }
         }
-      },
-      "ach": {
-        "description": "ACH payment instrument object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/PaymentInstrument"
-          },
-          {
-            "type": "object",
-            "required": [
-              "bankAccountId"
-            ],
-            "properties": {
-              "bankAccountId": {
-                "description": "The bank account identifier string",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ResourceId"
-                  }
-                ]
-              },
-              "gatewayAccountId": {
-                "description": "The payment gateway identifier string",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ResourceId"
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "cash": {
-        "description": "Cash payment instrument object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/PaymentInstrument"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "receivedBy": {
-                "description": "The receiver's name",
-                "type": "string"
-              }
-            }
-          }
-        ]
-      },
-      "payment-card": {
-        "description": "Payment card payment instrument object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/PaymentInstrument"
-          },
-          {
-            "type": "object",
-            "required": [
-              "paymentCardId"
-            ],
-            "properties": {
-              "paymentCardId": {
-                "description": "The payment card identifier string",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ResourceId"
-                  }
-                ]
-              },
-              "gatewayAccountId": {
-                "description": "The payment gateway identifier string",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ResourceId"
-                  }
-                ]
-              }
-            }
-          }
-        ]
-      },
-      "paypal": {
-        "description": "PayPal payment instrument object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/PaymentInstrument"
-          },
-          {
-            "type": "object",
-            "required": [
-              "payPalAccountId"
-            ],
-            "properties": {
-              "payPalAccountId": {
-                "description": "The PayPal account identifier string",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ResourceId"
-                  }
-                ]
-              },
-              "gatewayAccountId": {
-                "description": "The payment gateway identifier string",
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ResourceId"
-                  }
-                ]
-              }
-            }
-          }
-        ]
       },
       "AmountAdjustment": {
         "type": "object",
