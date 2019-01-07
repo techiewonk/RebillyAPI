@@ -134,14 +134,18 @@ tags:
       Invoices leave a record for both you and your customer of the products sold.
   - name: Payments
     description: |
+      Payments endpoints are deprecated.  Please use the transactions resource
+      instead.  A payment is a transaction with type `sale`.  The transactions
+      resource is more robust and has withstood the test of time by enterprises.
+
       Collect money from your customers with payments.  You can schedule a payment
       to occur in the future.  You can assign a dunning schedule to a payment to collect
       in the case of a decline.
 
-      Some payments may be, what we term, suspended payments.  These types of payments
+      Some payments may be, what we term, offsite payments.  These types of payments
       require user interaction.  For example, an initial PayPal purchase, a 3D Secure
       purchase, China Union Pay, and more require the customer's interaction to
-      complete the payment.  We call these a "suspended" payment flow.
+      complete the payment.  We call these a "offsite" payment flow.
   - name: Payment Cards
     description: |
       Payment cards are a type of payment instrument used for credit and debit card
@@ -4519,6 +4523,7 @@ paths:
       tags:
         - Payments
       summary: Retrieve a payment list
+      deprecated: true
       description: |
         Retrieve a payment list
       parameters:
@@ -4571,11 +4576,12 @@ paths:
                 'filter' => 'currency:USD',
             ]);
     post:
+      deprecated: true
       tags:
         - Payments
       summary: Create a payment
       description: |
-        Create a payment
+        Create a payment (deprecated).  Use create a transaction instead.
       requestBody:
         $ref: '#/components/requestBodies/Payment'
       responses:
@@ -4626,6 +4632,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/resourceId'
     get:
+      deprecated: true
       tags:
         - Payments
       summary: Retrieve a payment
@@ -4654,6 +4661,7 @@ paths:
           source: |
             $payment = $client->payments()->load('paymentId');
     put:
+      deprecated: true
       tags:
         - Payments
       summary: Create a payment with predefined ID
@@ -5357,6 +5365,7 @@ paths:
           $ref: '#/components/responses/NotFound'
   /queue/payments:
     get:
+      deprecated: true
       tags:
         - Payments
       parameters:
@@ -5399,6 +5408,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/resourceId'
     get:
+      deprecated: true
       tags:
         - Payments
       summary: Retrieve a scheduled payment
@@ -5440,6 +5450,7 @@ paths:
           source: |
             $payment = $client->payments()->loadFromQueue('paymentId');
     put:
+      deprecated: true
       tags:
         - Payments
       summary: Update pending payment
@@ -6432,6 +6443,51 @@ paths:
                 echo $e->getMessage();
             }
   /transactions:
+    post:
+      tags:
+        - Transactions
+      summary: Create a transaction
+      description: |
+        Create a transactions of type `sale`, `authorize`, or `credit`.
+        This endpoint supports two main styles of transactions:
+          1. A real-time decision and response.
+          2. User approval/interaction is required.
+
+        A real-time decision is very familiar.  You send a request, and
+        inspect the `result` of the response for `approved` or `declined`.
+
+        However, many transactions, especially those for alternative
+        methods, require the user to interact with a 3rd party.  You
+        may be able to envision PayPal, for example, the user must
+        give permission to complete the payment (or accept the 
+        billing agreement).  
+
+        Even payment cards may require user approval in the case of
+        3D secure authentication.  In the event that approval is 
+        required, you will receive a response back and notice
+        that the `result` is `unknown`.  You will find that the
+        `status` is `waiting-approval`. And you will find in the
+        `_links` section of the response a link for the `approvalUrl`.
+
+        In this case you would either open the `approvalUrl` in an 
+        iframe or in a pop (better workflow for mobile).  
+      requestBody:
+        $ref: '#/components/requestBodies/TransactionRequest'
+      responses:
+        '201':
+          description: Transaction was created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/InvalidDataError'
     get:
       tags:
         - Transactions
@@ -11410,11 +11466,11 @@ components:
             follow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`
             HTTP status code.
           type: string
-          format: url
+          format: uri
         redirectUrl:
           description: The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.
           type: string
-          format: url
+          format: uri
         redirectUrls:
           $ref: '#/components/schemas/RedirectUrls'
         retryInstruction:
@@ -11497,6 +11553,84 @@ components:
               - $ref: '#/components/schemas/CancelUrlLink'
               - $ref: '#/components/schemas/RefundUrlLink'
               - $ref: '#/components/schemas/DisputeLink'
+    TransactionRequest:
+      type: object
+      required:
+        - websiteId
+        - customerId
+        - currency
+        - amount
+        - type
+      properties:
+        id:
+          description: The payment identifier string
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/ResourceId'
+        websiteId:
+          description: The website identifier string
+          allOf:
+            - $ref: '#/components/schemas/ResourceId'
+        customerId:
+          description: The customer identifier string
+          allOf:
+            - $ref: '#/components/schemas/ResourceId'
+        currency:
+          description: The payment currency ISO Alpha code
+          type: string
+        type:
+          description: |
+            The type of transaction requested. 
+            You should always include the type within your API request.
+            This supports a limited subset of Transaction types.  To refund or void, use the refund endpoint.
+            To `capture` use the `sale` endpoint.  It will capture if there are any eligible
+            transactions of type `authorize` that can be captured.
+          type: string
+          enum:
+            - sale
+            - authorize
+            - credit
+        amount:
+          description: |
+            The transaction amount.  Use `0` for a zero dollar verification. This is important if 
+            you want to authorize a payment instrument before giving access to a free trial, for example.
+          type: number
+          format: double
+        invoiceIds:
+          description: |
+            The array of invoice identifiers.  It's important to note that the transaction
+            amount can be more or less than the combined invoice amounts.  If the transaction
+            is a type `sale` and it is `approved` it will be applied to these invoices in
+            the order of the first issued invoice to the most recently issued invoice.  If
+            there are enough funds to fully pay an invoice, the invoice status will be marked
+            as paid.
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceId'
+        paymentInstrument:
+          $ref: '#/components/schemas/PaymentInstrument'
+        billingAddress:
+          description: 'Billing Address. If not supplied, we use the billing address associated with the payment instrument, and then customer.'
+          allOf:
+            - $ref: '#/components/schemas/ContactObject'
+        description:
+          description: The payment description
+          type: string
+          maxLength: 255
+        notificationUrl:
+          description: |
+            The URL where a server-to-server notification request type `POST` with an empty body will be sent
+            when the transaction's result is finalized. Do not trust the notification;
+            follow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`
+            HTTP status code, or we will reattempt the request again.
+          type: string
+          format: uri
+        redirectUrl:
+          description: The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.
+          type: string
+          format: uri
+        customFields:
+          $ref: '#/components/schemas/ResourceCustomFields'
   responses:
     AccessForbidden:
       description: 'Access forbidden, invalid API-KEY was used'
@@ -11754,6 +11888,13 @@ components:
           schema:
             $ref: '#/components/schemas/SubscriptionCancellation'
       description: Cancellation resource
+      required: true
+    TransactionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionRequest'
+      description: Payment resource
       required: true
   securitySchemes:
     JWT:

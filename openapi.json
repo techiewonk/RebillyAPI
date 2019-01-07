@@ -80,7 +80,7 @@
     },
     {
       "name": "Payments",
-      "description": "Collect money from your customers with payments.  You can schedule a payment\nto occur in the future.  You can assign a dunning schedule to a payment to collect\nin the case of a decline.\n\nSome payments may be, what we term, suspended payments.  These types of payments\nrequire user interaction.  For example, an initial PayPal purchase, a 3D Secure\npurchase, China Union Pay, and more require the customer's interaction to\ncomplete the payment.  We call these a \"suspended\" payment flow.\n"
+      "description": "Payments endpoints are deprecated.  Please use the transactions resource\ninstead.  A payment is a transaction with type `sale`.  The transactions\nresource is more robust and has withstood the test of time by enterprises.\n\nCollect money from your customers with payments.  You can schedule a payment\nto occur in the future.  You can assign a dunning schedule to a payment to collect\nin the case of a decline.\n\nSome payments may be, what we term, offsite payments.  These types of payments\nrequire user interaction.  For example, an initial PayPal purchase, a 3D Secure\npurchase, China Union Pay, and more require the customer's interaction to\ncomplete the payment.  We call these a \"offsite\" payment flow.\n"
     },
     {
       "name": "Payment Cards",
@@ -5789,6 +5789,7 @@
           "Payments"
         ],
         "summary": "Retrieve a payment list",
+        "deprecated": true,
         "description": "Retrieve a payment list\n",
         "parameters": [
           {
@@ -5868,11 +5869,12 @@
         ]
       },
       "post": {
+        "deprecated": true,
         "tags": [
           "Payments"
         ],
         "summary": "Create a payment",
-        "description": "Create a payment\n",
+        "description": "Create a payment (deprecated).  Use create a transaction instead.\n",
         "requestBody": {
           "$ref": "#/components/requestBodies/Payment"
         },
@@ -5925,6 +5927,7 @@
         }
       ],
       "get": {
+        "deprecated": true,
         "tags": [
           "Payments"
         ],
@@ -5967,6 +5970,7 @@
         ]
       },
       "put": {
+        "deprecated": true,
         "tags": [
           "Payments"
         ],
@@ -6846,6 +6850,7 @@
     },
     "/queue/payments": {
       "get": {
+        "deprecated": true,
         "tags": [
           "Payments"
         ],
@@ -6912,6 +6917,7 @@
         }
       ],
       "get": {
+        "deprecated": true,
         "tags": [
           "Payments"
         ],
@@ -6975,6 +6981,7 @@
         ]
       },
       "put": {
+        "deprecated": true,
         "tags": [
           "Payments"
         ],
@@ -8276,6 +8283,40 @@
       }
     },
     "/transactions": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create a transaction",
+        "description": "Create a transactions of type `sale`, `authorize`, or `credit`.\nThis endpoint supports two main styles of transactions:\n  1. A real-time decision and response.\n  2. User approval/interaction is required.\n\nA real-time decision is very familiar.  You send a request, and\ninspect the `result` of the response for `approved` or `declined`.\n\nHowever, many transactions, especially those for alternative\nmethods, require the user to interact with a 3rd party.  You\nmay be able to envision PayPal, for example, the user must\ngive permission to complete the payment (or accept the \nbilling agreement).  \n\nEven payment cards may require user approval in the case of\n3D secure authentication.  In the event that approval is \nrequired, you will receive a response back and notice\nthat the `result` is `unknown`.  You will find that the\n`status` is `waiting-approval`. And you will find in the\n`_links` section of the response a link for the `approvalUrl`.\n\nIn this case you would either open the `approvalUrl` in an \niframe or in a pop (better workflow for mobile).  \n",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/TransactionRequest"
+        },
+        "responses": {
+          "201": {
+            "description": "Transaction was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AccessForbidden"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidDataError"
+          }
+        }
+      },
       "get": {
         "tags": [
           "Transactions"
@@ -15550,12 +15591,12 @@
           "notificationUrl": {
             "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent \nwhen the transaction's result is finalized. Do not trust the notification; \nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code.\n",
             "type": "string",
-            "format": "url"
+            "format": "uri"
           },
           "redirectUrl": {
             "description": "The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.",
             "type": "string",
-            "format": "url"
+            "format": "uri"
           },
           "redirectUrls": {
             "$ref": "#/components/schemas/RedirectUrls"
@@ -15694,6 +15735,97 @@
                 }
               ]
             }
+          }
+        }
+      },
+      "TransactionRequest": {
+        "type": "object",
+        "required": [
+          "websiteId",
+          "customerId",
+          "currency",
+          "amount",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "description": "The payment identifier string",
+            "readOnly": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
+          "websiteId": {
+            "description": "The website identifier string",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
+          "customerId": {
+            "description": "The customer identifier string",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
+          "currency": {
+            "description": "The payment currency ISO Alpha code",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of transaction requested. \nYou should always include the type within your API request.\nThis supports a limited subset of Transaction types.  To refund or void, use the refund endpoint.\nTo `capture` use the `sale` endpoint.  It will capture if there are any eligible\ntransactions of type `authorize` that can be captured.\n",
+            "type": "string",
+            "enum": [
+              "sale",
+              "authorize",
+              "credit"
+            ]
+          },
+          "amount": {
+            "description": "The transaction amount.  Use `0` for a zero dollar verification. This is important if \nyou want to authorize a payment instrument before giving access to a free trial, for example.\n",
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceIds": {
+            "description": "The array of invoice identifiers.  It's important to note that the transaction\namount can be more or less than the combined invoice amounts.  If the transaction\nis a type `sale` and it is `approved` it will be applied to these invoices in\nthe order of the first issued invoice to the most recently issued invoice.  If\nthere are enough funds to fully pay an invoice, the invoice status will be marked\nas paid.\n",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceId"
+            }
+          },
+          "paymentInstrument": {
+            "$ref": "#/components/schemas/PaymentInstrument"
+          },
+          "billingAddress": {
+            "description": "Billing Address. If not supplied, we use the billing address associated with the payment instrument, and then customer.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ContactObject"
+              }
+            ]
+          },
+          "description": {
+            "description": "The payment description",
+            "type": "string",
+            "maxLength": 255
+          },
+          "notificationUrl": {
+            "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent\nwhen the transaction's result is finalized. Do not trust the notification;\nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code, or we will reattempt the request again.\n",
+            "type": "string",
+            "format": "uri"
+          },
+          "redirectUrl": {
+            "description": "The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.",
+            "type": "string",
+            "format": "uri"
+          },
+          "customFields": {
+            "$ref": "#/components/schemas/ResourceCustomFields"
           }
         }
       }
@@ -16069,6 +16201,17 @@
           }
         },
         "description": "Cancellation resource",
+        "required": true
+      },
+      "TransactionRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/TransactionRequest"
+            }
+          }
+        },
+        "description": "Payment resource",
         "required": true
       }
     },
