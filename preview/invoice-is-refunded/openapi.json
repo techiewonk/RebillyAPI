@@ -10997,6 +10997,11 @@
               "voided"
             ]
           },
+          "isDisputed": {
+            "type": "string",
+            "description": "Whether the invoice (related transaction) has been disputed",
+            "readOnly": true
+          },
           "isRefunded": {
             "type": "string",
             "description": "Whether the invoice (related transaction) has been subsequently refunded",
