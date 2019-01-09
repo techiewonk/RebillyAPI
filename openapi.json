@@ -14743,7 +14743,8 @@
               "transaction-voided",
               "transaction-discrepancy-found",
               "transaction-amount-discrepancy-found",
-              "email-message-sent"
+              "email-message-sent",
+              "custom-event-processed"
             ]
           },
           "triggeredBy": {
