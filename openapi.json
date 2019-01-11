@@ -9145,6 +9145,7 @@
               "payment-card",
               "customer-id",
               "email",
+              "email-domain",
               "ip-address",
               "country",
               "fingerprint",
