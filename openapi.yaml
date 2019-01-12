@@ -6907,9 +6907,10 @@ components:
           description: The token's username
           type: string
         password:
-          description: The token's password (write-only)
+          description: The token's password
           type: string
           format: password
+          writeOnly: true
         credentialId:
           description: The credential's ID
           readOnly: true
@@ -7518,6 +7519,7 @@ components:
           description: The credential's password
           type: string
           format: password
+          writeOnly: true
         customerId:
           description: The credential's customer ID
           type: string
@@ -9884,13 +9886,10 @@ components:
         username:
           description: The token's username
           type: string
-        password:
-          description: Token's password (only for POST)
-          type: string
-          format: password
-        credential:
+        credentialId:
           description: Token's credential ID
           type: string
+          readOnly: true
         expiredTime:
           description: Password expired time
           type: string

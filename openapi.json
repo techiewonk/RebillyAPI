@@ -8967,9 +8967,10 @@
             "type": "string"
           },
           "password": {
-            "description": "The token's password (write-only)",
+            "description": "The token's password",
             "type": "string",
-            "format": "password"
+            "format": "password",
+            "writeOnly": true
           },
           "credentialId": {
             "description": "The credential's ID",
@@ -9910,7 +9911,8 @@
           "password": {
             "description": "The credential's password",
             "type": "string",
-            "format": "password"
+            "format": "password",
+            "writeOnly": true
           },
           "customerId": {
             "description": "The credential's customer ID",
@@ -13327,14 +13329,10 @@
             "description": "The token's username",
             "type": "string"
           },
-          "password": {
-            "description": "Token's password (only for POST)",
-            "type": "string",
-            "format": "password"
-          },
-          "credential": {
+          "credentialId": {
             "description": "Token's credential ID",
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "expiredTime": {
             "description": "Password expired time",
