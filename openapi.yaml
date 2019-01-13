@@ -2054,7 +2054,7 @@ paths:
       x-code-samples:
         - lang: PHP
           source: |
-            $customFields = $client->customFields()->search([
+            $customFields = $client->customFields()->search('customers', [
                 'filter' => 'type:boolean',
             ]);
   '/custom-fields/{resource}/{name}':
@@ -2093,7 +2093,7 @@ paths:
       x-code-samples:
         - lang: PHP
           source: |
-            $customField = $client->customFields()->load('customers', 'customerId');
+            $customField = $client->customFields()->load('customers', 'testFieldName');
     put:
       tags:
         - Custom Fields

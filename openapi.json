@@ -2502,7 +2502,7 @@
         "x-code-samples": [
           {
             "lang": "PHP",
-            "source": "$customFields = $client->customFields()->search([\n    'filter' => 'type:boolean',\n]);\n"
+            "source": "$customFields = $client->customFields()->search('customers', [\n    'filter' => 'type:boolean',\n]);\n"
           }
         ]
       }
@@ -2560,7 +2560,7 @@
         "x-code-samples": [
           {
             "lang": "PHP",
-            "source": "$customField = $client->customFields()->load('customers', 'customerId');\n"
+            "source": "$customField = $client->customFields()->load('customers', 'testFieldName');\n"
           }
         ]
       },
