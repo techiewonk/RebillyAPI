@@ -2956,7 +2956,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FileCreateRequest'
+              oneOf:
+                - $ref: '#/components/schemas/FileCreateFromInline'
+                - $ref: '#/components/schemas/FileCreateFromUrl'
         required: true
       responses:
         '201':
@@ -8029,24 +8031,44 @@ components:
               - $ref: '#/components/schemas/FileDownloadLink'
               - $ref: '#/components/schemas/SignedLinkLink'
               - $ref: '#/components/schemas/PermalinkLink'
-    FileCreateRequest:
+    FileCreateFromInline:
       type: object
-      oneOf:
-        - required:
-            - file
-          properties:
-            file:
-              description: The file in base64 encoded format.
-              type: string
-              example: R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=
-        - required:
-            - url
-          properties:
-            url:
-              description: The URL of the file to upload.
-              type: string
-              example: 'https://blog.rebilly.com/wp-content/uploads/2017/09/rb_LogoInverted_Small.png'
+      required:
+        - file
       properties:
+        file:
+          description: The file in base64 encoded format.
+          type: string
+          example: R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=
+        isPublic:
+          description: The File visibility. If public a permalink is provided.
+          type: boolean
+          example: false
+        name:
+          description: The file name used for downloading
+          type: string
+          example: logo.png
+        description:
+          description: The file description
+          type: string
+          example: My file description
+        tags:
+          description: The tags list
+          type: array
+          items:
+            type: string
+          example:
+            - test
+            - tags
+    FileCreateFromUrl:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          description: The URL of the file to upload.
+          type: string
+          example: 'https://blog.rebilly.com/wp-content/uploads/2017/09/rb_LogoInverted_Small.png'
         isPublic:
           description: The File visibility. If public a permalink is provided.
           type: boolean
