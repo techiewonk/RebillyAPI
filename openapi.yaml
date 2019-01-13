@@ -2956,7 +2956,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FileCreateRequest'
+              oneOf:
+                - $ref: '#/components/schemas/FileCreateFromInline'
+                - $ref: '#/components/schemas/FileCreateFromUrl'
         required: true
       responses:
         '201':
@@ -4028,7 +4030,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PaymentCard'
+              oneOf:
+                - $ref: '#/components/schemas/PaymentCardCreateToken'
+                - $ref: '#/components/schemas/PaymentCardCreatePlain'
         description: PaymentCard resource
         required: true
       responses:
@@ -4207,7 +4211,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PaymentCard'
+              oneOf:
+                - $ref: '#/components/schemas/PaymentCardCreateToken'
+                - $ref: '#/components/schemas/PaymentCardCreatePlain'
         description: Payment card
       responses:
         '200':
@@ -7976,9 +7982,6 @@ components:
         description:
           description: The File description
           type: string
-        url:
-          description: 'Write-only. If defined on POST, this would be used as a file source.'
-          type: string
         tags:
           description: The tags list
           type: array
@@ -8032,18 +8035,42 @@ components:
               - $ref: '#/components/schemas/FileDownloadLink'
               - $ref: '#/components/schemas/SignedLinkLink'
               - $ref: '#/components/schemas/PermalinkLink'
-    FileCreateRequest:
+    FileCreateFromInline:
       type: object
       required:
         - file
-        - url
       properties:
         file:
-          description: The file in base64 encoded format. This or `url` is required.
+          description: The file in base64 encoded format.
           type: string
           example: R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=
+        isPublic:
+          description: The File visibility. If public a permalink is provided.
+          type: boolean
+          example: false
+        name:
+          description: The file name used for downloading
+          type: string
+          example: logo.png
+        description:
+          description: The file description
+          type: string
+          example: My file description
+        tags:
+          description: The tags list
+          type: array
+          items:
+            type: string
+          example:
+            - test
+            - tags
+    FileCreateFromUrl:
+      type: object
+      required:
+        - url
+      properties:
         url:
-          description: The URL of the file to upload. This or `file` is required.
+          description: The URL of the file to upload.
           type: string
           example: 'https://blog.rebilly.com/wp-content/uploads/2017/09/rb_LogoInverted_Small.png'
         isPublic:
@@ -8959,9 +8986,6 @@ components:
           readOnly: true
           enum:
             - payment-card
-        pan:
-          description: The card PAN (Primary Account Number). Required if card is not being created from Token. This is write-only.
-          type: string
         bin:
           description: The card's bin (the PAN's first 6 digits)
           type: string
@@ -8972,21 +8996,18 @@ components:
           type: string
           readOnly: true
         expYear:
-          description: Card's expiry year. Required if card is not being created from Token.
+          description: Card's expiry year.
           type: integer
         expMonth:
-          description: Card's expiry month. Required if card is not being created from Token.
+          description: Card's expiry month.
           type: integer
         cvv:
-          description: Card's cvv (card verification value). Required if card is not being created from Token.
+          description: Card's cvv (card verification value).
           type: string
         billingAddress:
-          description: The Billing Address. Required if card is not being created from Token.
+          description: The Billing Address.
           allOf:
             - $ref: '#/components/schemas/ContactObject'
-        token:
-          description: PaymentCardToken. Use without any other fields except for `customerId`.
-          type: string
         panFingerprint:
           description: A unique value to identify the PAN regardless of expiration dates.  It contains alphanumeric values.
           type: string
@@ -9056,6 +9077,54 @@ components:
               - $ref: '#/components/schemas/CustomerLink'
               - $ref: '#/components/schemas/AuthTransactionLink'
               - $ref: '#/components/schemas/ApprovalUrlLink'
+    PaymentCardCreatePlain:
+      type: object
+      required:
+        - customerId
+        - pan
+        - expYear
+        - expMonth
+        - cvv
+        - billingAddress
+      properties:
+        customerId:
+          description: The Customer's ID.
+          allOf:
+            - $ref: '#/components/schemas/ResourceId'
+        pan:
+          description: The card PAN (Primary Account Number).
+          type: string
+          writeOnly: true
+        expYear:
+          description: Card's expiry year.
+          type: integer
+        expMonth:
+          description: Card's expiry month.
+          type: integer
+        cvv:
+          description: Card's cvv (card verification value).
+          type: string
+        billingAddress:
+          description: The Billing Address.
+          allOf:
+            - $ref: '#/components/schemas/ContactObject'
+        customFields:
+          $ref: '#/components/schemas/ResourceCustomFields'
+    PaymentCardCreateToken:
+      type: object
+      required:
+        - customerId
+        - token
+      properties:
+        customerId:
+          description: The Customer's ID.
+          allOf:
+            - $ref: '#/components/schemas/ResourceId'
+        token:
+          description: PaymentCardToken ID.
+          type: string
+        customFields:
+          $ref: '#/components/schemas/ResourceCustomFields'
     PaymentInstrument:
       type: object
       required:
