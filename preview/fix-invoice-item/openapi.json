@@ -10913,7 +10913,7 @@
             "description": "Invoice item's total price",
             "type": "number",
             "format": "double",
-            "writeOnly": true
+            "readOnly": true
           },
           "productId": {
             "description": "The product's ID",
