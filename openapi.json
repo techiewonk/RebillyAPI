@@ -17,7 +17,7 @@
       "url": "https://rebilly.github.io/RebillyAPI/rb_apiLogo.svg",
       "backgroundColor": "#0033A0"
     },
-    "description": "# Introduction\nThe Rebilly API is built on HTTP.  Our API is RESTful.  It has predictable\nresource URLs.  It returns HTTP response codes to indicate errors.  It also\naccepts and returns JSON in the HTTP body.  You can use your favorite\nHTTP/REST library for your programming language to use Rebilly's API, or\nyou can use one of our SDKs (currently available in [PHP](https://github.com/Rebilly/rebilly-php)\nand [Javascript](https://github.com/Rebilly/rebilly-js-sdk)).\n\nWe have other APIs that are also available.  Every action from our [app](https://app.rebilly.com)\nis supported by an API which is documented and available for use so that you\nmay automate any workflows necessary.  This document contains the most commonly\nintegrated resources.\n\n# Authentication\nWhen you sign up for an account, you are given your first API key.\nYou can generate additional API keys, and delete API keys (as you may\nneed to rotate your keys in the future). You authenticate to the\nRebilly API by providing your secret key in the request header.\n\nRebilly offers three forms of authentication:  secret key, publishable key, JSON Web Tokens, and public signature key.\n- [Secret API key](#section/Authentication/SecretApiKey): used for requests made from the server side. Never share these keys. Keep them guarded and secure\n- [Publishable API key](#section/Authentication/PublishableApiKey): used for requests from the client side. For now can only be used on the [Tokens resource](#tag/Payment-Tokens/paths/~1tokens/post)\n- [JWT](#section/Authentication/JWT): short lifetime tokens that can be assigned a specific expiration time\n\nNever share your secret keys. Keep them guarded and secure.\n\n<!-- ReDoc-Inject: <security-definitions> -->\n\n# PHP SDK\nFor all PHP SDK examples provided in this spec you will need to configure `$client`.\nYou may do it like this:\n\n```php\n$client = new Rebilly\\Client([\n    'apiKey' => 'YourApiKeyHere',\n    'baseUrl' => 'https://api.rebilly.com',\n]);\n```\n\n# Using filter\nRebilly provides collections filtering. You can use `?filter` param on collection to define which records should be shown in the response.\n\nHere is filter format description:\n\n- Fields and values in filter are separated with `:`: `?filter=firstName:John`.\n\n- Fields in filter are separated with `;`: `?filter=firstName:John;lastName:Doe`.\n\n- You can use multiple values using `,` as values separator: `?filter=firstName:John,Bob`.\n\n- To negate the filter use `!`: `?filter=firstName:!John`. Note that you can negate multiple values like this: `?filter=firstName:!John,Bob`. This filter rule will exclude all Johns and Bobs from the response.\n\n- You can use range filters like this: `?filter=amount:1..10`.\n\n- You can use gte (greater than or equals) filter like this: `?filter=amount:1..`, or lte (less than or equals) than filter like this: `?filter=amount:..10`.\n\n- You can create some [predefined values lists](https://rebilly.github.io/RebillyUserAPI/#tag/Lists) and use them in filter: `?filter=firstName:@yourListName`. You can also exclude list values: `?filter=firstName:!@yourListName`\n"
+    "description": ""
   },
   "servers": [
     {
@@ -3651,6 +3651,7 @@
           "Files"
         ],
         "summary": "Create a file",
+        "operationId": "fileCreation",
         "security": [
           {
             "SecretApiKey": []
@@ -8075,6 +8076,63 @@
       }
     },
     "/tokens": {
+      "post": {
+        "tags": [
+          "Payment Tokens"
+        ],
+        "summary": "Create a payment token",
+        "operationId": "paymentTokenCreation",
+        "description": "[FramePay](https://rebilly.github.io/framepay-docs/)\nis the recommended way to \ncreate a payment token because it minimizes\nPCI DSS compliance.  Once a payment token \nis created, it can only be used once.\n\nA payment token expires upon first use\nor within 30 minutes of the token creation\n(whichever comes first).\n\nIn the event that you need to expire a token\nfor other reasons, you may expire\na token.\n",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PaymentToken"
+        },
+        "security": [
+          {
+            "PublishableApiKey": []
+          },
+          {
+            "SecretApiKey": []
+          },
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Token was created",
+            "headers": {
+              "Rate-Limit-Limit": {
+                "$ref": "#/components/headers/Rate-Limit-Limit"
+              },
+              "Rate-Limit-Remaining": {
+                "$ref": "#/components/headers/Rate-Limit-Remaining"
+              },
+              "Rate-Limit-Reset": {
+                "$ref": "#/components/headers/Rate-Limit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentToken"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AccessForbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/InvalidDataError"
+          }
+        },
+        "x-code-samples": [
+          {
+            "lang": "PHP",
+            "source": "$paymentCardTokenForm = new Rebilly\\Entities\\PaymentCardToken();\n$paymentCardTokenForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\n$paymentInstrumentForm = new Entities\\PaymentInstruments\\PaymentCardPaymentInstrument();\n$paymentInstrumentForm->setPan('4111111111111111');\n$paymentInstrumentForm->setExpYear(2025);\n$paymentInstrumentForm->setExpMonth(8);\n$paymentInstrumentForm->setCvv(123);\n\n$paymentCardTokenForm->setPaymentInstrument($paymentInstrumentForm);\n\ntry {\n    $paymentCardToken = $client->paymentCardTokens()->create($paymentCardTokenForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
+          }
+        ]
+      },
       "get": {
         "tags": [
           "Payment Tokens"
@@ -8131,56 +8189,6 @@
           {
             "lang": "PHP",
             "source": "$paymentCardTokens = $client->paymentCardTokens()->search([\n    'filter' => 'token:string',\n]);\n"
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Payment Tokens"
-        ],
-        "summary": "Create a payment token",
-        "description": "Create a token\n",
-        "requestBody": {
-          "$ref": "#/components/requestBodies/PaymentToken"
-        },
-        "security": [
-          {
-            "PublishableApiKey": []
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Token was created",
-            "headers": {
-              "Rate-Limit-Limit": {
-                "$ref": "#/components/headers/Rate-Limit-Limit"
-              },
-              "Rate-Limit-Remaining": {
-                "$ref": "#/components/headers/Rate-Limit-Remaining"
-              },
-              "Rate-Limit-Reset": {
-                "$ref": "#/components/headers/Rate-Limit-Reset"
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaymentToken"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/AccessForbidden"
-          },
-          "422": {
-            "$ref": "#/components/responses/InvalidDataError"
-          }
-        },
-        "x-code-samples": [
-          {
-            "lang": "PHP",
-            "source": "$paymentCardTokenForm = new Rebilly\\Entities\\PaymentCardToken();\n$paymentCardTokenForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\n$paymentInstrumentForm = new Entities\\PaymentInstruments\\PaymentCardPaymentInstrument();\n$paymentInstrumentForm->setPan('4111111111111111');\n$paymentInstrumentForm->setExpYear(2025);\n$paymentInstrumentForm->setExpMonth(8);\n$paymentInstrumentForm->setCvv(123);\n\n$paymentCardTokenForm->setPaymentInstrument($paymentInstrumentForm);\n\ntry {\n    $paymentCardToken = $client->paymentCardTokens()->create($paymentCardTokenForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
           }
         ]
       }

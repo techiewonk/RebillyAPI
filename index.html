@@ -11,7 +11,7 @@
     So override default browser styles
     -->
     <style>
-      @import url(//fonts.googleapis.com/css?family=Montserrat:400,700);
+      @import url(//fonts.googleapis.com/css?family=Roboto:400,700);
 
       body {
         margin: 0;
@@ -36,11 +36,11 @@
   </head>
   <body>
     <div id="redoc_container"></div>
-    <script src="https://redocpro-cdn.redoc.ly/v1.0.0-beta.5/redocpro-standalone.min.js"></script>
+    <script src="https://redocpro-cdn.redoc.ly/v1.0.0-beta.7/redocpro-standalone.min.js"></script>
     <script>
       RedocPro.init(
         './openapi.json',
-        {"showConsole":true,"layout":{"scope":"section"},"theme":{"colors":{"text":{"primary":"#333333"}},"typography":{"fontFamily":"Verdana, Geneva, sans-serif","fontSize":"14px"}},"redocURL":"https://redocpro-cdn.redoc.ly/v1.0.0-beta.5/redocpro-standalone.min.js","redocExport":"RedocPro"},
+        {"showConsole":true,"layout":{"scope":"section"},"theme":{"colors":{"text":{"primary":"#333333"}},"typography":{"headings":{"fontFamily":"Roboto"},"fontFamily":"Roboto, Verdana, Geneva, sans-serif","fontSize":"14px"}},"redocURL":"https://redocpro-cdn.redoc.ly/v1.0.0-beta.7/redocpro-standalone.min.js","redocExport":"RedocPro","unstable_externalDescription":"description.md"},
         document.getElementById("redoc_container")
       );
     </script>
