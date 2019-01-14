@@ -6365,50 +6365,6 @@ paths:
         - lang: PHP
           source: |
             $paymentCardToken = $client->paymentCardTokens()->load('tokenId');
-  '/tokens/{token}/expiration':
-    parameters:
-      - name: token
-        in: path
-        description: The token identifier string
-        required: true
-        schema:
-          type: string
-    post:
-      deprecated: true
-      tags:
-        - Payment Tokens
-      summary: Expire a token
-      description: |
-        Expire a token. Tokens expire automatically upon
-        usage or after 30 minutes.
-      requestBody:
-        $ref: '#/components/requestBodies/PaymentToken'
-      responses:
-        '201':
-          description: Token expiration successful
-          headers:
-            Rate-Limit-Limit:
-              $ref: '#/components/headers/Rate-Limit-Limit'
-            Rate-Limit-Remaining:
-              $ref: '#/components/headers/Rate-Limit-Remaining'
-            Rate-Limit-Reset:
-              $ref: '#/components/headers/Rate-Limit-Reset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaymentToken'
-        '401':
-          $ref: '#/components/responses/AccessForbidden'
-        '422':
-          $ref: '#/components/responses/InvalidDataError'
-      x-code-samples:
-        - lang: PHP
-          source: |
-            try {
-                $paymentCardToken = $client->paymentCardTokens()->expire('tokenId');
-            } catch (UnprocessableEntityException $e) {
-                echo $e->getMessage();
-            }
   /transactions:
     post:
       tags:
@@ -8161,14 +8117,8 @@ components:
             - paid
             - abandoned
             - voided
-        isDisputed:
-          type: string
-          description: Whether the invoice (related transaction) has been disputed
-          readOnly: true
-        isRefunded:
-          type: string
-          description: Whether the invoice (related transaction) has been subsequently refunded
-          readOnly: true
+            - disputed
+            - refunded
         delinquentCollectionPeriod:
           type: integer
           description: Delinquent Collection Period - difference between paidTime and dueTime in days.
