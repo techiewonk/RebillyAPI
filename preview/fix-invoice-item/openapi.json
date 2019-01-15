@@ -9013,7 +9013,7 @@
             "type": "string"
           },
           "routingNumber": {
-            "description": "Bank's Routing Number. Required if bank account is not created from Token for BBAN account number type. This field is write-only",
+            "description": "Bank's Routing Number. Required if bank account is not created from Token for BBAN account number type.",
             "type": "string"
           },
           "accountNumberType": {
@@ -9026,8 +9026,9 @@
             ]
           },
           "accountNumber": {
-            "description": "Bank's Account Number. Required if bank account is not created from Token. This field is write-only",
-            "type": "string"
+            "description": "Bank's Account Number. Required if bank account is not created from Token.",
+            "type": "string",
+            "writeOnly": true
           },
           "accountType": {
             "description": "Banks's Account type. Required if bank account is not created from Token for BBAN account number type.",
@@ -9048,6 +9049,11 @@
                 "$ref": "#/components/schemas/ContactObject"
               }
             ]
+          },
+          "fingerprint": {
+            "description": "A unique value to identify the Bank Account. It contains alphanumeric values.",
+            "type": "string",
+            "readOnly": true
           },
           "status": {
             "description": "Bank Account status",
@@ -10729,10 +10735,10 @@
           },
           "items": {
             "type": "array",
-            "description": "Invoice items array",
+            "description": "Invoice Items array",
             "readOnly": true,
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/InvoiceItem"
             }
           },
           "taxes": {
@@ -10900,6 +10906,10 @@
               "credit"
             ]
           },
+          "description": {
+            "description": "Invoice item's description",
+            "type": "string"
+          },
           "unitPrice": {
             "description": "Invoice item's price",
             "type": "number",
@@ -10915,6 +10925,14 @@
             "format": "double",
             "readOnly": true
           },
+          "subscriptionId": {
+            "description": "The subscription's ID",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
           "productId": {
             "description": "The product's ID",
             "allOf": [
@@ -10922,10 +10940,6 @@
                 "$ref": "#/components/schemas/ResourceId"
               }
             ]
-          },
-          "description": {
-            "description": "Invoice item's description",
-            "type": "string"
           },
           "discountAmount": {
             "description": "Invoice item discount amount",
@@ -10942,6 +10956,10 @@
             "description": "End time",
             "type": "string",
             "format": "date-time"
+          },
+          "periodNumber": {
+            "description": "Invoice item subscription period number",
+            "type": "integer"
           },
           "_links": {
             "type": "array",
