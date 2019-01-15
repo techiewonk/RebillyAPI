@@ -8267,9 +8267,8 @@ components:
           type: string
           format: date-time
         periodNumber:
-          description: End time
-          type: string
-          format: date-time
+          description: Invoice item subscription period number
+          type: integer
         _links:
           type: array
           description: The links related to resource
