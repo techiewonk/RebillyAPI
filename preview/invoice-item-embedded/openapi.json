@@ -10724,7 +10724,7 @@
             "description": "Invoice Items array",
             "readOnly": true,
             "items": {
-              "$ref": "#/components/schemas/InvoiceItemInline"
+              "$ref": "#/components/schemas/InvoiceItem"
             }
           },
           "taxes": {
@@ -10870,34 +10870,6 @@
       },
       "InvoiceItem": {
         "type": "object",
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/InvoiceItemInline"
-          },
-          {
-            "properties": {
-              "_links": {
-                "type": "array",
-                "description": "The links related to resource",
-                "readOnly": true,
-                "minItems": 1,
-                "items": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/SelfLink"
-                    },
-                    {
-                      "$ref": "#/components/schemas/SubscriptionLink"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      },
-      "InvoiceItemInline": {
-        "type": "object",
         "required": [
           "type",
           "unitPrice"
@@ -10974,6 +10946,22 @@
             "description": "End time",
             "type": "string",
             "format": "date-time"
+          },
+          "_links": {
+            "type": "array",
+            "description": "The links related to resource",
+            "readOnly": true,
+            "minItems": 1,
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SelfLink"
+                },
+                {
+                  "$ref": "#/components/schemas/SubscriptionLink"
+                }
+              ]
+            }
           }
         }
       },
