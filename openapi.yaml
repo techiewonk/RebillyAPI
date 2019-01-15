@@ -8088,10 +8088,10 @@ components:
           type: string
         items:
           type: array
-          description: Invoice items array
+          description: Invoice Items array
           readOnly: true
           items:
-            type: string
+            $ref: '#/components/schemas/InvoiceItem'
         taxes:
           type: array
           description: Taxes applied to this invoice
@@ -8190,6 +8190,9 @@ components:
           enum:
             - debit
             - credit
+        description:
+          description: Invoice item's description
+          type: string
         unitPrice:
           description: Invoice item's price
           type: number
@@ -8201,13 +8204,14 @@ components:
           description: Invoice item's total price
           type: number
           format: double
+        subscriptionId:
+          description: The subscription's ID
+          allOf:
+            - $ref: '#/components/schemas/ResourceId'
         productId:
           description: The product's ID
           allOf:
             - $ref: '#/components/schemas/ResourceId'
-        description:
-          description: Invoice item's description
-          type: string
         discountAmount:
           description: Invoice item discount amount
           type: number
@@ -8221,6 +8225,9 @@ components:
           description: End time
           type: string
           format: date-time
+        periodNumber:
+          description: Invoice item subscription period number
+          type: integer
         _links:
           type: array
           description: The links related to resource
