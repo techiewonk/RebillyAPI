@@ -14081,7 +14081,7 @@
           },
           "couponIds": {
             "type": "array",
-            "description": "A list of coupons to redeem on the customer and restrict by this subscription",
+            "description": "A list of coupons to redeem on the customer and restrict to this subscription. Read more about [coupons here](https://help.rebilly.com/invoices-and-subscriptions/coupons-discounts).",
             "writeOnly": true,
             "items": {
               "type": "string",
