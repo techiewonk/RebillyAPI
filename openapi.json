@@ -10246,13 +10246,13 @@
         "description": "A separate Custom Field schema",
         "type": "object",
         "required": [
-          "name",
           "type"
         ],
         "properties": {
           "name": {
             "description": "The name of the custom field",
-            "type": "string"
+            "type": "string",
+            "readOnly": true
           },
           "type": {
             "description": "Type value    | Description\n------------- | -------------\narray         | An array of strings up to 255 characters, maximum size is 1000 elements\nboolean       | true or false\ndate          | String of format \"full-date\" (YYYY-MM-DD) from RFC-3339 (full-date)\ndatetime      | String of format \"date-time\" (YYYY-MM-DDTHH:MM:SSZ) from RFC-3339 (date-time)\ninteger       | Cardinal value of -2^31..2^31-1\nnumber        | Float value. It can take cardinal values also which are interpreted as float\nstring        | Regular string up to 255 characters\nmonetary      | A map of 3-letters currency code and amount, e.g. {\"currency\": \"EUR\", \"amount\": 25.30}\n",
