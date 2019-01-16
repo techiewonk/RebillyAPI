@@ -7379,6 +7379,7 @@ components:
             - restrict-to-invoices
             - restrict-to-plans
             - restrict-to-subscriptions
+            - restrict-to-products
             - total-redemptions
       required:
         - type
@@ -7448,6 +7449,20 @@ components:
             planIds:
               type: array
               description: Plan IDs coupon can be applied to
+              items:
+                type: string
+    restrict-to-products:
+      description: restrict-to-products restrictions
+      allOf:
+        - $ref: '#/components/schemas/CouponRestriction'
+        - $ref: '#/components/schemas/RedemptionRestriction'
+        - type: object
+          required:
+            - productIds
+          properties:
+            productIds:
+              type: array
+              description: Product IDs coupon can be applied to
               items:
                 type: string
     restrict-to-subscriptions:
@@ -7549,6 +7564,7 @@ components:
             - restrict-to-invoices
             - restrict-to-plans
             - restrict-to-subscriptions
+            - restrict-to-products
       required:
         - type
     Credential:
