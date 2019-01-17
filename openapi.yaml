@@ -2203,18 +2203,7 @@ paths:
         $ref: '#/components/requestBodies/Customer'
       responses:
         '201':
-          description: Customer was created
-          headers:
-            Rate-Limit-Limit:
-              $ref: '#/components/headers/Rate-Limit-Limit'
-            Rate-Limit-Remaining:
-              $ref: '#/components/headers/Rate-Limit-Remaining'
-            Rate-Limit-Reset:
-              $ref: '#/components/headers/Rate-Limit-Reset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
+          $ref: '#/components/responses/Customer'
         '401':
           $ref: '#/components/responses/AccessForbidden'
         '409':
@@ -2305,31 +2294,9 @@ paths:
         $ref: '#/components/requestBodies/Customer'
       responses:
         '200':
-          description: Customer was updated
-          headers:
-            Rate-Limit-Limit:
-              $ref: '#/components/headers/Rate-Limit-Limit'
-            Rate-Limit-Remaining:
-              $ref: '#/components/headers/Rate-Limit-Remaining'
-            Rate-Limit-Reset:
-              $ref: '#/components/headers/Rate-Limit-Reset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
+          $ref: '#/components/responses/Customer'
         '201':
-          description: Customer was created
-          headers:
-            Rate-Limit-Limit:
-              $ref: '#/components/headers/Rate-Limit-Limit'
-            Rate-Limit-Remaining:
-              $ref: '#/components/headers/Rate-Limit-Remaining'
-            Rate-Limit-Reset:
-              $ref: '#/components/headers/Rate-Limit-Reset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
+          $ref: '#/components/responses/Customer'
         '401':
           $ref: '#/components/responses/AccessForbidden'
         '409':
@@ -11843,6 +11810,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Customer:
+      description: Customer
+      headers:
+        Rate-Limit-Limit:
+          $ref: '#/components/headers/Rate-Limit-Limit'
+        Rate-Limit-Remaining:
+          $ref: '#/components/headers/Rate-Limit-Remaining'
+        Rate-Limit-Reset:
+          $ref: '#/components/headers/Rate-Limit-Reset'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
     Found:
       description: Resource was moved
       headers:
