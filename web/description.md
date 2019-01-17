@@ -338,7 +338,7 @@ including shipping, discounts, and taxes.
 
 To complete the payment, you will need to keep
 track of that `recentInvoiceId`, and the `total`
-amount that we want to charge the customer.
+`amount` that we want to charge the customer.
 
 See: [Subscription Upsert API Operation](#operation/putSubscription)
 
