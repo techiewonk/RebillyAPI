@@ -157,9 +157,8 @@ the [FramePay docs](https://rebilly.github.io/framepay-docs/).
 The payment token will be supplied to the surrounding order form, 
 and the value (the token id) will be used in the next API request.
 
-## Create/Update a Customer
+## Preventing Duplicates
 
-<PullRight>
 ### A Note on Duplication
 
 Important:  There are different
@@ -215,6 +214,14 @@ of values.
 
 The preferred solution is the first option, of the PUT
 only requests.
+
+## Upsert a Customer
+
+<PullRight>
+We recommend usage of the `PUT` request which
+behaves like "insert on duplicate id update."
+
+Read the guide to [Preventing Duplicates](#section/Getting-Started-Guide/Preventing-Duplicates)
 </PullRight>
 
 There is a write only field in the create/update customer
@@ -227,6 +234,16 @@ a primary address, as that will be inherited
 by default by other subordinate resources, as 
 well as easily searchable.
 
+We recommend creating the payment token with the full
+customer address information so that the request to upsert
+the customer is as simple as:
+
+```
+PUT customers/<id>
+{
+    "paymentToken": "<token id>"
+}
+```
 
 Contained within the customer creation response is
 a `customerId` and a `defaultPaymentInstrument`.
@@ -236,11 +253,10 @@ payment instrument is an object hash with one value
 method and up to one additional key for specific
 methods like a `paymentCardId` or `bankAccountId`).
 
-<RedocResponse pointer={"#/components/responses/Customer"} />
+See: [Customer Upsert API Operation](#operation/putCustomer)
 
 
-
-## Create the Order
+## Upsert the Order
 <PullRight>
 #### Preventing Duplication
 
@@ -261,10 +277,12 @@ invoice for a customer with certain items
 on there.  If it's a subscription order, then
 it creates an invoice at some regular schedule.
 
+This guide shows using the PUT (upsert)
+request.
 </PullRight>
-A subscription is our API term for an order.  
+A **subscription** is our API term for an **order**.
 
-You can have a subscription type one-time order.  
+You can have a subscription type `one-time-order`.
 
 We expect to rename the endpoint in the future,
 but we will maintain this endpoint available for
@@ -274,11 +292,39 @@ To create a subscription, you must know
 the `customerId`, the `websiteId`, and the
 list of `items` (pricing plans and quantities).
 
+The `websiteId` is informational and can be
+found in the **settings > organizations and websites**
+section of the app.
+
+This example shows us placing an order for the customer
+for the "pro" plan and the "guide."
+```
+PUT subscriptions/<order id>
+{
+    "customerId": "<replace with customer id>",
+    "websiteId": "<replace with website id>",
+    "items": [
+        {
+            "productId": "pro",
+            "quantity": 1
+        },
+        {
+            "productId": "guide",
+            "quantity: 1
+        }
+    ],
+}
+```
+
 The response from the request will include a 
 `recentInvoiceId` and an embedded `recentInvoice`
 inside of the `_embedded` path of the object. 
 
-The result of creating the order is a `pending`
+We could inspect the recent invoice to find
+the total, the line items, the taxes, discount,
+shipping.
+
+The result of this request for creating the order is a `pending`
 subscription.  When the invoice is paid, then
 the subscription will be activated and the status
 will be `active`.  
@@ -291,8 +337,10 @@ to display to the customer a preview of the total
 including shipping, discounts, and taxes.  
 
 To complete the payment, you will need to keep
-track of that `recentInvoiceId`.  
+track of that `recentInvoiceId`, and the `total`
+amount that we want to charge the customer.
 
+See: [Subscription Upsert API Operation](#operation/putSubscription)
 
 ## Collect the Payment
 
@@ -333,3 +381,5 @@ sandbox](https://help.rebilly.com/rebilly-basics/testing-transactions)
 If the payment result is `declined` you may
 present a message to the customer to retry 
 with different payment information.
+
+See: [Transaction Request API Operation](#operation/createTransaction)
