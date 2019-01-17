@@ -309,7 +309,7 @@ PUT subscriptions/<order id>
             "quantity": 1
         },
         {
-            "productId": "guide",
+            "planId": "guide",
             "quantity: 1
         }
     ],
