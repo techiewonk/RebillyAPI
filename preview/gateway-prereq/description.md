@@ -305,12 +305,12 @@ PUT subscriptions/<order id>
     "websiteId": "<replace with website id>",
     "items": [
         {
-            "productId": "pro",
+            "planId": "pro",
             "quantity": 1
         },
         {
-            "productId": "guide",
-            "quantity: 1
+            "planId": "guide",
+            "quantity": 1
         }
     ],
 }
@@ -337,8 +337,8 @@ to display to the customer a preview of the total
 including shipping, discounts, and taxes.  
 
 To complete the payment, you will need to keep
-track of that `recentInvoiceId`, and the `total`
-amount that we want to charge the customer.
+track of that `recentInvoiceId`, and the total
+`amount` that we want to charge the customer.
 
 See: [Subscription Upsert API Operation](#operation/putSubscription)
 
