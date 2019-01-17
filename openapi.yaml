@@ -7073,6 +7073,7 @@ components:
           type: string
           enum:
             - payment-card
+            - bank-account
             - customer-id
             - email
             - email-domain
