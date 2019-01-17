@@ -305,7 +305,7 @@ PUT subscriptions/<order id>
     "websiteId": "<replace with website id>",
     "items": [
         {
-            "productId": "pro",
+            "planId": "pro",
             "quantity": 1
         },
         {
