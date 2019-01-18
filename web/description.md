@@ -63,19 +63,22 @@ Rebilly provides collections filtering. You can use `?filter` param on collectio
 Here is filter format description:
 
 - Fields and values in filter are separated with `:`: `?filter=firstName:John`.
-
 - Fields in filter are separated with `;`: `?filter=firstName:John;lastName:Doe`.
-
 - You can use multiple values using `,` as values separator: `?filter=firstName:John,Bob`.
-
-- To negate the filter use `!`: `?filter=firstName:!John`. Note that you can negate multiple values like this: `?filter=firstName:!John,Bob`. This filter rule will exclude all Johns and Bobs from the response.
-
+- To negate the filter use `!`: `?filter=firstName:!John`. Note that you can negate multiple values like this:
+ `?filter=firstName:!John,Bob`. This filter rule will exclude all Johns and Bobs from the response.
 - You can use range filters like this: `?filter=amount:1..10`.
 
 - You can use gte (greater than or equals) filter like this: `?filter=amount:1..`, or lte (less than or equals) than filter like this: `?filter=amount:..10`.
 
 - You can create some [predefined values lists](https://rebilly.github.io/RebillyUserAPI/#tag/Lists) and use them in filter: `?filter=firstName:@yourListName`. You can also exclude list values: `?filter=firstName:!@yourListName`
 
+# Expanding linked resources
+
+Most resources have other linked resources which can be included into the API response.
+To include the resources use `expand` query parameter with a list links: `?expand=customer,website,subscription`.
+The list of links can be found for every resource in `_links` value (use `rel` property for expanding).
+The expansion can be specified for any endpoint which returns a specific resource.
 
 # Getting Started Guide
 
