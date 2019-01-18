@@ -11041,6 +11041,7 @@ components:
             - subscription-reactivated
             - subscription-canceled
             - email-message-sent
+            - coupon-applied
         triggeredBy:
           description: Shows who or what triggered the Timeline message
           type: string

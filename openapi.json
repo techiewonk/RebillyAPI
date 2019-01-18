@@ -15083,7 +15083,8 @@
               "subscription-activated",
               "subscription-reactivated",
               "subscription-canceled",
-              "email-message-sent"
+              "email-message-sent",
+              "coupon-applied"
             ]
           },
           "triggeredBy": {
