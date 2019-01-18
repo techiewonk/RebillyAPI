@@ -11040,6 +11040,7 @@ components:
             - subscription-activated
             - subscription-reactivated
             - subscription-canceled
+            - email-message-sent
         triggeredBy:
           description: Shows who or what triggered the Timeline message
           type: string

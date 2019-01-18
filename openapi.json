@@ -15082,7 +15082,8 @@
               "subscription-renewed",
               "subscription-activated",
               "subscription-reactivated",
-              "subscription-canceled"
+              "subscription-canceled",
+              "email-message-sent"
             ]
           },
           "triggeredBy": {
