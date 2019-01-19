@@ -9174,8 +9174,13 @@
             "writeOnly": true
           },
           "accountType": {
-            "description": "Banks's Account type. Required if bank account is not created from Token for BBAN account number type.",
-            "type": "string"
+            "description": "Bank's Account type. Required if bank account is not created from Token for BBAN account number type.",
+            "type": "string",
+            "enum": [
+              "checking",
+              "savings",
+              "other"
+            ]
           },
           "token": {
             "description": "Bank Account Token. Use without any other fields",
