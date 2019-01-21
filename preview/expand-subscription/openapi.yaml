@@ -10549,6 +10549,7 @@ components:
               - $ref: '#/components/schemas/CustomerLink'
               - $ref: '#/components/schemas/InitialInvoiceLink'
               - $ref: '#/components/schemas/RecentInvoiceLink'
+              - $ref: '#/components/schemas/WebsiteLink'
         _embedded:
           type: array
           description: Any embedded objects available that are requested by the `expand` querystring parameter.
@@ -11947,7 +11948,7 @@ components:
 
         It accepts a comma-separated list of objects to expand.
 
-        See the expand guide for more info.
+        See the [expand guide](#section/Expand-to-Include-Embedded-Objects) for more info.
       schema:
         type: string
     collectionFields:

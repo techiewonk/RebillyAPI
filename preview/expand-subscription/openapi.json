@@ -14388,6 +14388,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/RecentInvoiceLink"
+                },
+                {
+                  "$ref": "#/components/schemas/WebsiteLink"
                 }
               ]
             }
@@ -16395,7 +16398,7 @@
       "collectionExpand": {
         "name": "expand",
         "in": "query",
-        "description": "Expand a response to get a full related object included inside \nof the `_embedded` path in the response. \n\nIt accepts a comma-separated list of objects to expand.\n\nSee the expand guide for more info.\n",
+        "description": "Expand a response to get a full related object included inside \nof the `_embedded` path in the response. \n\nIt accepts a comma-separated list of objects to expand.\n\nSee the [expand guide](#section/Expand-to-Include-Embedded-Objects) for more info.\n",
         "schema": {
           "type": "string"
         }
