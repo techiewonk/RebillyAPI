@@ -5810,6 +5810,7 @@ paths:
       description: |
         Retrieve a list of subscriptions
       parameters:
+        - $ref: '#/components/parameters/subscriptionExpand'
         - $ref: '#/components/parameters/collectionLimit'
         - $ref: '#/components/parameters/collectionOffset'
         - name: Accept
@@ -5861,7 +5862,10 @@ paths:
         - Subscriptions
       summary: Create a subscription
       description: |
-        Create a subscription
+        Create a subscription. Consider using the upsert
+        operation to accomplish this task.
+      parameters:
+        - $ref: '#/components/parameters/subscriptionExpand'
       requestBody:
         $ref: '#/components/requestBodies/Subscription'
       responses:
@@ -5938,6 +5942,8 @@ paths:
       tags:
         - Subscriptions
       summary: Retrieve a subscription
+      parameters:
+        - $ref: '#/components/parameters/subscriptionExpand'
       description: |
         Retrieve a subscription with specified identifier string
       responses:
@@ -5969,6 +5975,8 @@ paths:
       operationId: putSubscription
       description: |
         Create or update a subscription with predefined identifier string
+      parameters:
+        - $ref: '#/components/parameters/subscriptionExpand'
       requestBody:
         $ref: '#/components/requestBodies/Subscription'
       responses:
@@ -7972,6 +7980,34 @@ components:
             anyOf:
               - $ref: '#/components/schemas/SelfLink'
               - $ref: '#/components/schemas/TransactionLink'
+    CustomerEmbed:
+      type: object
+      description: Customer object
+      readOnly: true
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+    InitialInvoiceEmbed:
+      type: object
+      description: Initial Invoice object
+      readOnly: true
+      properties:
+        initialInvoice:
+          $ref: '#/components/schemas/Invoice'
+    RecentInvoiceEmbed:
+      type: object
+      description: Recent Invoice object
+      readOnly: true
+      properties:
+        recentInvoice:
+          $ref: '#/components/schemas/Invoice'
+    WebsiteEmbed:
+      type: object
+      description: Website object
+      readOnly: true
+      properties:
+        website:
+          type: object
     Error:
       type: object
       properties:
@@ -8688,6 +8724,18 @@ components:
             - gatewayAccount
       required:
         - rel
+    InitialInvoiceLink:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Link'
+      properties:
+        rel:
+          description: The link type
+          type: string
+          enum:
+            - initialInvoice
+      required:
+        - rel
     LeadSourceLink:
       type: object
       allOf:
@@ -8778,6 +8826,18 @@ components:
           type: string
           enum:
             - plan
+      required:
+        - rel
+    RecentInvoiceLink:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Link'
+      properties:
+        rel:
+          description: The link type
+          type: string
+          enum:
+            - recentInvoice
       required:
         - rel
     RefundUrlLink:
@@ -10478,6 +10538,29 @@ components:
           items:
             type: string
             description: Coupon ID
+        _links:
+          type: array
+          description: The links related to resource
+          readOnly: true
+          minItems: 1
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/SelfLink'
+              - $ref: '#/components/schemas/CustomerLink'
+              - $ref: '#/components/schemas/InitialInvoiceLink'
+              - $ref: '#/components/schemas/RecentInvoiceLink'
+              - $ref: '#/components/schemas/WebsiteLink'
+        _embedded:
+          type: array
+          description: Any embedded objects available that are requested by the `expand` querystring parameter.
+          readOnly: true
+          minItems: 1
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/RecentInvoiceEmbed'
+              - $ref: '#/components/schemas/InitialInvoiceEmbed'
+              - $ref: '#/components/schemas/CustomerEmbed'
+              - $ref: '#/components/schemas/WebsiteEmbed'
     one-time-order:
       allOf:
         - $ref: '#/components/schemas/Subscription'
@@ -11859,7 +11942,13 @@ components:
     collectionExpand:
       name: expand
       in: query
-      description: Expand response to get full related object instead of ID. See the expand guide for more info.
+      description: |
+        Expand a response to get a full related object included inside 
+        of the `_embedded` path in the response. 
+
+        It accepts a comma-separated list of objects to expand.
+
+        See the [expand guide](#section/Expand-to-Include-Embedded-Objects) for more info.
       schema:
         type: string
     collectionFields:
@@ -11947,6 +12036,25 @@ components:
       in: path
       description: The resource identifier string
       required: true
+      schema:
+        type: string
+    subscriptionExpand:
+      name: expand
+      in: query
+      description: |
+        Expand a response to get a full related object included inside 
+        of the `_embedded` path in the response. 
+
+        To expand multiple objects, it accepts a comma-separated 
+        list of objects (example: `expand=recentInvoice,initialInvoice`).
+
+        Available arguments are:
+          - recentInvoice
+          - initialInvoice
+          - customer
+          - website
+
+        See the [expand guide](#section/Expand-to-Include-Embedded-Objects) for more info.
       schema:
         type: string
   headers:

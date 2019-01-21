@@ -7626,6 +7626,9 @@
         "description": "Retrieve a list of subscriptions\n",
         "parameters": [
           {
+            "$ref": "#/components/parameters/subscriptionExpand"
+          },
+          {
             "$ref": "#/components/parameters/collectionLimit"
           },
           {
@@ -7703,7 +7706,12 @@
           "Subscriptions"
         ],
         "summary": "Create a subscription",
-        "description": "Create a subscription\n",
+        "description": "Create a subscription. Consider using the upsert\noperation to accomplish this task.\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/subscriptionExpand"
+          }
+        ],
         "requestBody": {
           "$ref": "#/components/requestBodies/Subscription"
         },
@@ -7755,6 +7763,11 @@
           "Subscriptions"
         ],
         "summary": "Retrieve a subscription",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/subscriptionExpand"
+          }
+        ],
         "description": "Retrieve a subscription with specified identifier string\n",
         "responses": {
           "200": {
@@ -7799,6 +7812,11 @@
         "summary": "Upsert a subscription with predefined ID",
         "operationId": "putSubscription",
         "description": "Create or update a subscription with predefined identifier string\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/subscriptionExpand"
+          }
+        ],
         "requestBody": {
           "$ref": "#/components/requestBodies/Subscription"
         },
@@ -10563,6 +10581,46 @@
           }
         }
       },
+      "CustomerEmbed": {
+        "type": "object",
+        "description": "Customer object",
+        "readOnly": true,
+        "properties": {
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          }
+        }
+      },
+      "InitialInvoiceEmbed": {
+        "type": "object",
+        "description": "Initial Invoice object",
+        "readOnly": true,
+        "properties": {
+          "initialInvoice": {
+            "$ref": "#/components/schemas/Invoice"
+          }
+        }
+      },
+      "RecentInvoiceEmbed": {
+        "type": "object",
+        "description": "Recent Invoice object",
+        "readOnly": true,
+        "properties": {
+          "recentInvoice": {
+            "$ref": "#/components/schemas/Invoice"
+          }
+        }
+      },
+      "WebsiteEmbed": {
+        "type": "object",
+        "description": "Website object",
+        "readOnly": true,
+        "properties": {
+          "website": {
+            "type": "object"
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "properties": {
@@ -11672,6 +11730,26 @@
           "rel"
         ]
       },
+      "InitialInvoiceLink": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Link"
+          }
+        ],
+        "properties": {
+          "rel": {
+            "description": "The link type",
+            "type": "string",
+            "enum": [
+              "initialInvoice"
+            ]
+          }
+        },
+        "required": [
+          "rel"
+        ]
+      },
       "LeadSourceLink": {
         "type": "object",
         "allOf": [
@@ -11817,6 +11895,26 @@
             "type": "string",
             "enum": [
               "plan"
+            ]
+          }
+        },
+        "required": [
+          "rel"
+        ]
+      },
+      "RecentInvoiceLink": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Link"
+          }
+        ],
+        "properties": {
+          "rel": {
+            "description": "The link type",
+            "type": "string",
+            "enum": [
+              "recentInvoice"
             ]
           }
         },
@@ -14271,6 +14369,53 @@
               "type": "string",
               "description": "Coupon ID"
             }
+          },
+          "_links": {
+            "type": "array",
+            "description": "The links related to resource",
+            "readOnly": true,
+            "minItems": 1,
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SelfLink"
+                },
+                {
+                  "$ref": "#/components/schemas/CustomerLink"
+                },
+                {
+                  "$ref": "#/components/schemas/InitialInvoiceLink"
+                },
+                {
+                  "$ref": "#/components/schemas/RecentInvoiceLink"
+                },
+                {
+                  "$ref": "#/components/schemas/WebsiteLink"
+                }
+              ]
+            }
+          },
+          "_embedded": {
+            "type": "array",
+            "description": "Any embedded objects available that are requested by the `expand` querystring parameter.",
+            "readOnly": true,
+            "minItems": 1,
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/RecentInvoiceEmbed"
+                },
+                {
+                  "$ref": "#/components/schemas/InitialInvoiceEmbed"
+                },
+                {
+                  "$ref": "#/components/schemas/CustomerEmbed"
+                },
+                {
+                  "$ref": "#/components/schemas/WebsiteEmbed"
+                }
+              ]
+            }
           }
         }
       },
@@ -16253,7 +16398,7 @@
       "collectionExpand": {
         "name": "expand",
         "in": "query",
-        "description": "Expand response to get full related object instead of ID. See the expand guide for more info.",
+        "description": "Expand a response to get a full related object included inside \nof the `_embedded` path in the response. \n\nIt accepts a comma-separated list of objects to expand.\n\nSee the [expand guide](#section/Expand-to-Include-Embedded-Objects) for more info.\n",
         "schema": {
           "type": "string"
         }
@@ -16361,6 +16506,14 @@
         "in": "path",
         "description": "The resource identifier string",
         "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "subscriptionExpand": {
+        "name": "expand",
+        "in": "query",
+        "description": "Expand a response to get a full related object included inside \nof the `_embedded` path in the response. \n\nTo expand multiple objects, it accepts a comma-separated \nlist of objects (example: `expand=recentInvoice,initialInvoice`).\n\nAvailable arguments are:\n  - recentInvoice\n  - initialInvoice\n  - customer\n  - website\n\nSee the [expand guide](#section/Expand-to-Include-Embedded-Objects) for more info.\n",
         "schema": {
           "type": "string"
         }
