@@ -16160,7 +16160,12 @@
             "readOnly": true
           },
           "orderId": {
-            "description": "The transactions's order ID.  This ID must be unique within a 24 hour period.",
+            "deprecated": true,
+            "description": "The transactions's order ID.  This ID must be unique within a 24 hour period. This field was renamed to the `requestId`.",
+            "type": "string"
+          },
+          "requestId": {
+            "description": "The transactions's request ID.  This ID must be unique within a 24 hour period. Use this field to prevent duplicated transactions.",
             "type": "string"
           },
           "customFields": {
@@ -16279,8 +16284,9 @@
             ]
           },
           "currency": {
-            "description": "The payment currency ISO Alpha code",
-            "type": "string"
+            "description": "The payment currency ISO-4217 Alpha 3 Code",
+            "type": "string",
+            "example": "USD"
           },
           "type": {
             "description": "The type of transaction requested. \nYou should always include the type within your API request.\nThis supports a limited subset of Transaction types.  To refund or void, use the refund endpoint.\nTo `capture` use the `sale` endpoint.  It will capture if there are any eligible\ntransactions of type `authorize` that can be captured.\n",
@@ -16315,7 +16321,10 @@
             ]
           },
           "requestId": {
-            "description": "The request id is **recommended**. It prevents duplicate transaction requests within a short period of time. If a duplicate request is sent with the same `requestId` it will be ignored to prevent double-billing anyone.  It must be unique within a 24-hour period.  We recommend generating a UUID v4 as its value."
+            "description": "The request id is **recommended**. It prevents duplicate transaction requests within a short period of time. If a duplicate request is sent with the same `requestId` it will be ignored to prevent double-billing anyone.  It must be unique within a 24-hour period.  We recommend generating a UUID v4 as its value.",
+            "type": "string",
+            "maxLength": 50,
+            "example": "44433322-2c4y-483z-a0a9-158621f77a21"
           },
           "description": {
             "description": "The payment description",

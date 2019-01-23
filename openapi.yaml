@@ -11786,7 +11786,11 @@ components:
           type: boolean
           readOnly: true
         orderId:
-          description: The transactions's order ID.  This ID must be unique within a 24 hour period.
+          deprecated: true
+          description: The transactions's order ID.  This ID must be unique within a 24 hour period. This field was renamed to the `requestId`.
+          type: string
+        requestId:
+          description: The transactions's request ID.  This ID must be unique within a 24 hour period. Use this field to prevent duplicated transactions.
           type: string
         customFields:
           $ref: '#/components/schemas/ResourceCustomFields'
@@ -11848,8 +11852,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/ResourceId'
         currency:
-          description: The payment currency ISO Alpha code
+          description: The payment currency ISO-4217 Alpha 3 Code
           type: string
+          example: USD
         type:
           description: |
             The type of transaction requested. 
@@ -11887,6 +11892,9 @@ components:
             - $ref: '#/components/schemas/ContactObject'
         requestId:
           description: The request id is **recommended**. It prevents duplicate transaction requests within a short period of time. If a duplicate request is sent with the same `requestId` it will be ignored to prevent double-billing anyone.  It must be unique within a 24-hour period.  We recommend generating a UUID v4 as its value.
+          type: string
+          maxLength: 50
+          example: 44433322-2c4y-483z-a0a9-158621f77a21
         description:
           description: The payment description
           type: string
