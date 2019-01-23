@@ -16134,6 +16134,11 @@
             "readOnly": true,
             "description": "True if this transaction is retry."
           },
+          "billingDescriptor": {
+            "type": "string",
+            "readOnly": true,
+            "description": "The billing descriptor that appears on the periodic billing statement. Commonly 12 or fewer characters for a credit card statement."
+          },
           "description": {
             "type": "string",
             "description": "The payment description",
@@ -16308,6 +16313,9 @@
                 "$ref": "#/components/schemas/ContactObject"
               }
             ]
+          },
+          "requestId": {
+            "description": "The request id is **recommended**. It prevents duplicate transaction requests within a short period of time. If a duplicate request is sent with the same `requestId` it will be ignored to prevent double-billing anyone.  It must be unique within a 24-hour period.  We recommend generating a UUID v4 as its value."
           },
           "description": {
             "description": "The payment description",
