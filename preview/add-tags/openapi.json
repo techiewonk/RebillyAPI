@@ -8502,7 +8502,7 @@
           "Tags"
         ],
         "summary": "Delete a tag",
-        "description": "Delete a tag\n",
+        "description": "Delete a tag.\nIt's an asynchronous operation.\n",
         "responses": {
           "204": {
             "description": "Tag was deleted"
@@ -8527,7 +8527,7 @@
           "Tags"
         ],
         "summary": "Tag a list of customers",
-        "description": "Tag a list of customers\n",
+        "description": "Tag a list of customers.\nIf the customer from the list is already tagged it will be ignored.\nIt's an asynchronous operation.\n",
         "requestBody": {
           "required": true,
           "content": {
@@ -8542,6 +8542,7 @@
                     "description": "The list of customer IDs",
                     "type": "array",
                     "minItems": 1,
+                    "maxItems": 1000,
                     "items": {
                       "type": "string"
                     }
@@ -8568,7 +8569,7 @@
           "Tags"
         ],
         "summary": "Untag a list of customers",
-        "description": "Untag a list of customers\n",
+        "description": "Untag a list of customers.\nIf the customer from the list is already untagged it will be ignored.\nIt's an asynchronous operation.\n",
         "requestBody": {
           "required": true,
           "content": {
@@ -8583,6 +8584,7 @@
                     "description": "The list of customer IDs",
                     "type": "array",
                     "minItems": 1,
+                    "maxItems": 1000,
                     "items": {
                       "type": "string"
                     }
