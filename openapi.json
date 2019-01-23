@@ -15234,7 +15234,16 @@
               "subscription-reactivated",
               "subscription-canceled",
               "email-message-sent",
-              "coupon-applied"
+              "coupon-applied",
+              "invoice-created",
+              "invoice-issued",
+              "invoice-abandoned",
+              "invoice-voided",
+              "invoice-past-due",
+              "invoice-paid",
+              "invoice-partially-paid",
+              "subscription-upgraded",
+              "subscription-downgraded"
             ]
           },
           "triggeredBy": {
