@@ -6567,7 +6567,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/tag'
       - $ref: '#/components/parameters/customerId'
-    put:
+    post:
       tags:
         - Tags
       summary: Tag a customer

@@ -8616,7 +8616,7 @@
           "$ref": "#/components/parameters/customerId"
         }
       ],
-      "put": {
+      "post": {
         "tags": [
           "Tags"
         ],
