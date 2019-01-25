@@ -4,8 +4,8 @@ required:
   - discount
   - issuedTime
 properties:
-  redemptionCode:
-    description: Coupon's redemption code
+  id:
+    description: Coupon's ID which can be used as a redemption code
     readOnly: true
     allOf:
       - $ref: "#/components/schemas/ResourceId"
@@ -32,7 +32,7 @@ properties:
     type: string
     description: |
       Your coupon description. When it is not empty this is used for invoice discount item description,
-      otherwise the item's description uses coupon's redemptionCode like 'Coupon "redemptionCode"'
+      otherwise the item's description uses coupon's couponId like 'Coupon "couponId"'
   issuedTime:
     description: Coupon's issued time (start time)
     type: string

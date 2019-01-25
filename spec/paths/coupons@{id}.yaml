@@ -1,7 +1,7 @@
 parameters:
-  - name: redemptionCode
+  - name: id
     in: path
-    description: The Coupon's redemption code
+    description: The Coupon's ID
     required: true
     schema:
       type: string
@@ -10,7 +10,7 @@ get:
     - Coupons
   summary: Retrieve a coupon
   description: |
-    Retrieve a coupon with specified redemption code string
+    Retrieve a coupon with specified ID
   responses:
     200:
       description: Coupon was retrieved successfully
@@ -32,9 +32,9 @@ get:
 put:
   tags:
     - Coupons
-  summary: Create or update a coupon with predefined redemption code
+  summary: Create or update a coupon with predefined ID
   description: |
-    Create or update a coupon with predefined redemption code
+    Create or update a coupon with predefined ID
   requestBody:
     $ref: "#/components/requestBodies/Coupon"
   responses:

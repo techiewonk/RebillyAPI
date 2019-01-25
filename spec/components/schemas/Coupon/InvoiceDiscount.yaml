@@ -1,8 +1,8 @@
 type: object
 readOnly: true
 properties:
-  redemptionCode:
-    description: Coupon's redemption code
+  couponId:
+    description: Coupon's ID
     allOf:
       - $ref: "#/components/schemas/ResourceId"
   redemptionId:

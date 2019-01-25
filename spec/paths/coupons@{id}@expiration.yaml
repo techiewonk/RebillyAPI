@@ -1,7 +1,7 @@
 parameters:
-  - name: redemptionCode
+  - name: id
     in: path
-    description: The coupon's redemption code
+    description: The coupon's ID
     required: true
     schema:
       type: string
@@ -10,7 +10,7 @@ post:
     - Coupons
   summary: Set a coupon's expiration time.
   description: |
-    Set a coupon's expiry time with the specified redemption code.
+    Set a coupon's expiry time with the specified ID.
     The expiredTime of a coupon must be greater than its issuedTime.
     This cannot be performed on expired coupons.
   requestBody:
