@@ -11363,13 +11363,14 @@
             "readOnly": true,
             "enum": [
               "draft",
-              "issued",
-              "past-due",
+              "unpaid",
               "paid",
+              "past-due",
+              "delinquent",
               "abandoned",
               "voided",
-              "disputed",
-              "refunded"
+              "refunded",
+              "disputed"
             ]
           },
           "delinquentCollectionPeriod": {
@@ -14592,13 +14593,30 @@
           },
           "status": {
             "type": "string",
+            "description": "The status of the subscription service. A subscription starts\nin the `pending` status, and will become `active` when the \nservice period begins.\n",
             "readOnly": true,
             "enum": [
               "pending",
               "active",
               "canceled",
               "churned",
+              "suspended",
               "paused"
+            ]
+          },
+          "billingStatus": {
+            "description": "The billing status of the most recent invoice.  It may\nhelp you determine if you should change the service status\nsuch as suspending the service.\n",
+            "type": "string",
+            "readOnly": true,
+            "enum": [
+              "unpaid",
+              "past-due",
+              "delinquent",
+              "paid",
+              "voided",
+              "refunded",
+              "disputed",
+              "abandoned"
             ]
           },
           "customerId": {
