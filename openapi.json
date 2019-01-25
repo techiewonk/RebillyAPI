@@ -16718,7 +16718,7 @@
             "example": "USD"
           },
           "type": {
-            "description": "The type of transaction requested. \nYou should always include the type within your API request.\nThis supports a limited subset of Transaction types.  To refund or void, use the refund endpoint.\nTo `capture` use the `sale` endpoint.  It will capture if there are any eligible\ntransactions of type `authorize` that can be captured.\n",
+            "description": "The type of transaction requested.\nYou should always include the type within your API request.\nThis supports a limited subset of Transaction types.  To refund or void, use the refund endpoint.\nTo `capture` use the `sale` endpoint.  It will capture if there are any eligible\ntransactions of type `authorize` that can be captured.\n",
             "type": "string",
             "enum": [
               "sale",
@@ -16727,7 +16727,7 @@
             ]
           },
           "amount": {
-            "description": "The transaction amount.  Use `0` for a zero dollar verification. This is important if \nyou want to authorize a payment instrument before giving access to a free trial, for example.\n",
+            "description": "The transaction amount.  Use `0` for a zero dollar verification. This is important if\nyou want to authorize a payment instrument before giving access to a free trial, for example.\n",
             "type": "number",
             "format": "double"
           },
@@ -16763,12 +16763,14 @@
           "notificationUrl": {
             "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent\nwhen the transaction's result is finalized. Do not trust the notification;\nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code, or we will reattempt the request again.\n",
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "writeOnly": true
           },
           "redirectUrl": {
             "description": "The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.",
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "writeOnly": true
           },
           "customFields": {
             "$ref": "#/components/schemas/ResourceCustomFields"
