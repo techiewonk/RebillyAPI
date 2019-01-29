@@ -14566,7 +14566,7 @@
             "items": {
               "allOf": [
                 {
-                  "$ref": "#/components/schemas/InvoiceItem"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               ]
             }
