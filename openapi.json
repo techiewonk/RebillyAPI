@@ -16540,7 +16540,7 @@
             ]
           },
           "notificationUrl": {
-            "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent \nwhen the transaction's result is finalized. Do not trust the notification; \nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code.\n",
+            "description": "The URL where a server-to-server POST notification will be sent.  It  will be sent when the\ntransaction's result is finalized after a timeout or an offsite interaction. Do not trust the\nnotification; follow with a GET request to confirm the result of the transaction. Please\nrespond with a 2xx HTTP status code, or we will reattempt the request again.\n",
             "type": "string",
             "format": "uri"
           },
