@@ -14546,11 +14546,6 @@
       },
       "Search": {
         "type": "object",
-        "required": [
-          "content",
-          "relatedType",
-          "relatedId"
-        ],
         "properties": {
           "customers": {
             "description": "List of returned customers",
