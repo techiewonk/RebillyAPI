@@ -9473,10 +9473,31 @@ components:
         - method
       discriminator:
         propertyName: method
+        mapping:
+          ach: '#/components/schemas/achInstrument'
+          Alipay: '#/components/schemas/AlipayInstrument'
+          AstroPay-Card: '#/components/schemas/AstroPay-CardInstrument'
+          bank-account: '#/components/schemas/bank-accountInstrument'
+          bitcoin: '#/components/schemas/bitcoinInstrument'
+          Boleto: '#/components/schemas/BoletoInstrument'
+          cash: '#/components/schemas/cashInstrument'
+          China-UnionPay: '#/components/schemas/China-UnionPayInstrument'
+          ePay: '#/components/schemas/ePay-bgInstrument'
+          EPS: '#/components/schemas/EPSInstrument'
+          Flexepin: '#/components/schemas/FlexepinInstrument'
+          iDEAL: '#/components/schemas/iDEALInstrument'
+          Klarna: '#/components/schemas/KlarnaInstrument'
+          payment-card: '#/components/schemas/payment-cardInstrument'
+          paypal: '#/components/schemas/paypalInstrument'
+          QQPay: '#/components/schemas/QQPayInstrument'
+          Skrill-Rapid-Transfer: '#/components/schemas/Skrill-Rapid-TransferInstrument'
+          SMSVoucher: '#/components/schemas/SMSVoucherInstrument'
+          UPayCard: '#/components/schemas/UPayCardInstrument'
+          WeChat-Pay: '#/components/schemas/WeChat-PayInstrument'
       properties:
         method:
           $ref: '#/components/schemas/Method'
-    ach:
+    achInstrument:
       description: ACH payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
@@ -9488,15 +9509,15 @@ components:
               description: The bank account identifier string
               allOf:
                 - $ref: '#/components/schemas/ResourceId'
-    Alipay:
+    AlipayInstrument:
       description: Alipay payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    AstroPay-Card:
+    AstroPay-CardInstrument:
       description: AstroPay Card payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    bank-account:
+    bank-accountInstrument:
       description: ACH payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
@@ -9508,15 +9529,15 @@ components:
               description: The bank account identifier string
               allOf:
                 - $ref: '#/components/schemas/ResourceId'
-    bitcoin:
+    bitcoinInstrument:
       description: Bitcoin payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    Boleto:
+    BoletoInstrument:
       description: Boleto payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    cash:
+    cashInstrument:
       description: Cash payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
@@ -9525,31 +9546,31 @@ components:
             receivedBy:
               description: The receiver's name
               type: string
-    China-UnionPay:
+    China-UnionPayInstrument:
       description: China UnionPay payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    ePay-bg:
+    ePay-bgInstrument:
       description: ePay.bg payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    EPS:
+    EPSInstrument:
       description: EPS payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    Flexepin:
+    FlexepinInstrument:
       description: Flexepin payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    iDEAL:
+    iDEALInstrument:
       description: iDEAL payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    Klarna:
+    KlarnaInstrument:
       description: Klarna payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    payment-card:
+    payment-cardInstrument:
       description: Payment card payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
@@ -9561,7 +9582,7 @@ components:
               description: The payment card identifier string
               allOf:
                 - $ref: '#/components/schemas/ResourceId'
-    paypal:
+    paypalInstrument:
       description: PayPal payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
@@ -9573,23 +9594,23 @@ components:
               description: The PayPal account identifier string
               allOf:
                 - $ref: '#/components/schemas/ResourceId'
-    QQPay:
+    QQPayInstrument:
       description: QQPay payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    Skrill-Rapid-Transfer:
+    Skrill-Rapid-TransferInstrument:
       description: Skrill Rapid Transfer payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    SMSVoucher:
+    SMSVoucherInstrument:
       description: SMSVoucher payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    UPayCard:
+    UPayCardInstrument:
       description: SMSVoucher payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
-    WeChat-Pay:
+    WeChat-PayInstrument:
       description: WeChat Pay payment instrument object
       allOf:
         - $ref: '#/components/schemas/PaymentInstrument'
