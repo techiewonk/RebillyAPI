@@ -2786,7 +2786,7 @@
           "Customers"
         ],
         "summary": "Create a customer (without an ID)",
-        "description": "Create a customer without a predefined ID.  \nThe customer's primary address\nwill be used as the default address for payment\ninstruments, subscriptions and invoices if none\nare provided.\n\nIf you wish to create the customer with a predefined\nID (which we recommend to prevent duplication), you \nmay use our `PUT` request described below.\n\nRead our guide to [preventing duplicates](#section/Getting-Started-Guide/Preventing-Duplicates)\nto understand more.\n",
+        "description": "Create a customer without a predefined ID.  \nThe customer's primary address\nwill be used as the default address for payment\ninstruments, subscriptions and invoices if none\nare provided.\n\nIf you wish to create the customer with a predefined\nID (which we recommend to prevent duplication), you \nmay use our `PUT` request described below.\n\nRead our guide to [preventing duplicates](https://api-guides.rebilly.com/core-concepts/preventing-duplicates)\nto understand more.\n",
         "requestBody": {
           "$ref": "#/components/requestBodies/Customer"
         },
@@ -2866,7 +2866,7 @@
         ],
         "summary": "Upsert a customer with predefined ID",
         "operationId": "putCustomer",
-        "description": "Create or update (upsert) a customer with predefined identifier string.\nRead our guide to [preventing duplicates](#section/Getting-Started-Guide/Preventing-Duplicates)\nto understand more.\n",
+        "description": "Create or update (upsert) a customer with predefined identifier string.\nRead our guide to [preventing duplicates](https://api-guides.rebilly.com/core-concepts/preventing-duplicates)\nto understand more.\n",
         "requestBody": {
           "$ref": "#/components/requestBodies/Customer"
         },
@@ -7010,10 +7010,34 @@
         "description": "Search merchant's data to return resources such as customers, invoices, orders, transactions\n",
         "parameters": [
           {
-            "$ref": "#/components/parameters/collectionQuery"
+            "name": "q",
+            "in": "query",
+            "description": "The default or \"global\" search. It will search all searchable resources across as many fields as possible.\n",
+            "schema": {
+              "type": "string"
+            }
           },
           {
-            "$ref": "#/components/parameters/collectionFilter"
+            "name": "filter",
+            "in": "query",
+            "description": "The collection items filter requires a special format.\nUse \",\" for multiple allowed values.  Use \";\" for multiple fields.\nUse one or more of the listed filter fields. i.e. `is:customer email:bob@test.com`\n",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "is",
+                "amount",
+                "bin",
+                "coupon",
+                "date",
+                "email",
+                "last4",
+                "name",
+                "paypalUsername",
+                "plan",
+                "product",
+                "tag"
+              ]
+            }
           }
         ],
         "responses": {
@@ -7808,7 +7832,7 @@
         "x-code-samples": [
           {
             "lang": "PHP",
-            "source": "$subscriptionForm = new Rebilly\\Entities\\Subscription();\n$subscriptionForm->setCustomerId('customerId');\n$subscriptionForm->setWebsiteId('websiteId');\n$subscriptionForm->setItems($subscriptionForm->createItems([\n    'planId' => 'my-plan',\n    'quantity' => 1,\n]));\n$subscriptionForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\ntry {\n    $subscription = $client->subscriptions()->create($subscriptionForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
+            "source": "$subscriptionForm = new Rebilly\\Entities\\Subscription();\n$subscriptionForm->setCustomerId('customerId');\n$subscriptionForm->setWebsiteId('websiteId');\n$subscriptionForm->setItems([\n    [\n        'planId' => 'my-plan',\n        'quantity' => 1,\n    ],\n]);\n$subscriptionForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\ntry {\n    $subscription = $client->subscriptions()->create($subscriptionForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
           }
         ]
       }
@@ -9417,7 +9441,10 @@
               "plan",
               "product",
               "subscription",
-              "transaction"
+              "transaction",
+              "customer-timeline-comment",
+              "transaction-timeline-comment",
+              "order-timeline-comment"
             ]
           },
           "relatedId": {
@@ -9864,15 +9891,18 @@
           "properties": {
             "label": {
               "description": "The email label",
-              "type": "string"
+              "type": "string",
+              "example": "main"
             },
             "value": {
               "description": "The email value",
-              "type": "string"
+              "type": "string",
+              "example": "rebilly@example.com"
             },
             "primary": {
               "description": "True if email is primary",
-              "type": "boolean"
+              "type": "boolean",
+              "example": true
             }
           }
         }
@@ -9882,45 +9912,62 @@
         "properties": {
           "firstName": {
             "description": "The contact first name",
-            "type": "string"
+            "type": "string",
+            "example": "Benjamin",
+            "nullable": true
           },
           "lastName": {
             "description": "The contact last name",
-            "type": "string"
+            "type": "string",
+            "example": "Franklin",
+            "nullable": true
           },
           "organization": {
             "description": "The contact organization",
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "example": null
           },
           "address": {
             "description": "The contact street address",
             "type": "string",
-            "maxLength": 60
+            "maxLength": 60,
+            "example": "36 Craven St",
+            "nullable": true
           },
           "address2": {
             "description": "The contact street address (second line)",
             "type": "string",
-            "maxLength": 60
+            "maxLength": 60,
+            "nullable": true
           },
           "city": {
             "description": "The contact city",
             "type": "string",
-            "maxLength": 45
+            "maxLength": 45,
+            "nullable": true,
+            "example": "London"
           },
           "region": {
             "description": "The contact region (state)",
             "type": "string",
-            "maxLength": 45
+            "maxLength": 45,
+            "nullable": true,
+            "example": "London"
           },
           "country": {
             "description": "The contact country ISO Alpha-2 code",
             "type": "string",
-            "pattern": "^[A-Z]{2}$"
+            "pattern": "^[A-Z]{2}$",
+            "nullable": true,
+            "example": "GB"
           },
           "postalCode": {
             "description": "The contact postal code",
             "type": "string",
-            "maxLength": 10
+            "maxLength": 10,
+            "nullable": true,
+            "example": "WC2N 5NF"
           },
           "phoneNumbers": {
             "$ref": "#/components/schemas/ContactPhoneNumbers"
@@ -9949,15 +9996,18 @@
           "properties": {
             "label": {
               "description": "The phone label",
-              "type": "string"
+              "type": "string",
+              "example": "main"
             },
             "value": {
               "description": "The phone value",
-              "type": "string"
+              "type": "string",
+              "example": "512-710-1640"
             },
             "primary": {
               "description": "True if phone is primary",
-              "type": "boolean"
+              "type": "boolean",
+              "example": true
             }
           }
         }
@@ -12927,7 +12977,29 @@
           "method"
         ],
         "discriminator": {
-          "propertyName": "method"
+          "propertyName": "method",
+          "mapping": {
+            "ach": "#/components/schemas/achInstrument",
+            "Alipay": "#/components/schemas/AlipayInstrument",
+            "AstroPay-Card": "#/components/schemas/AstroPay-CardInstrument",
+            "bank-account": "#/components/schemas/bank-accountInstrument",
+            "bitcoin": "#/components/schemas/bitcoinInstrument",
+            "Boleto": "#/components/schemas/BoletoInstrument",
+            "cash": "#/components/schemas/cashInstrument",
+            "China-UnionPay": "#/components/schemas/China-UnionPayInstrument",
+            "ePay": "#/components/schemas/ePay-bgInstrument",
+            "EPS": "#/components/schemas/EPSInstrument",
+            "Flexepin": "#/components/schemas/FlexepinInstrument",
+            "iDEAL": "#/components/schemas/iDEALInstrument",
+            "Klarna": "#/components/schemas/KlarnaInstrument",
+            "payment-card": "#/components/schemas/payment-cardInstrument",
+            "paypal": "#/components/schemas/paypalInstrument",
+            "QQPay": "#/components/schemas/QQPayInstrument",
+            "Skrill-Rapid-Transfer": "#/components/schemas/Skrill-Rapid-TransferInstrument",
+            "SMSVoucher": "#/components/schemas/SMSVoucherInstrument",
+            "UPayCard": "#/components/schemas/UPayCardInstrument",
+            "WeChat-Pay": "#/components/schemas/WeChat-PayInstrument"
+          }
         },
         "properties": {
           "method": {
@@ -12935,7 +13007,7 @@
           }
         }
       },
-      "ach": {
+      "achInstrument": {
         "description": "ACH payment instrument object",
         "allOf": [
           {
@@ -12959,7 +13031,7 @@
           }
         ]
       },
-      "Alipay": {
+      "AlipayInstrument": {
         "description": "Alipay payment instrument object",
         "allOf": [
           {
@@ -12967,7 +13039,7 @@
           }
         ]
       },
-      "AstroPay-Card": {
+      "AstroPay-CardInstrument": {
         "description": "AstroPay Card payment instrument object",
         "allOf": [
           {
@@ -12975,7 +13047,7 @@
           }
         ]
       },
-      "bank-account": {
+      "bank-accountInstrument": {
         "description": "ACH payment instrument object",
         "allOf": [
           {
@@ -12999,7 +13071,7 @@
           }
         ]
       },
-      "bitcoin": {
+      "bitcoinInstrument": {
         "description": "Bitcoin payment instrument object",
         "allOf": [
           {
@@ -13007,7 +13079,7 @@
           }
         ]
       },
-      "Boleto": {
+      "BoletoInstrument": {
         "description": "Boleto payment instrument object",
         "allOf": [
           {
@@ -13015,7 +13087,7 @@
           }
         ]
       },
-      "cash": {
+      "cashInstrument": {
         "description": "Cash payment instrument object",
         "allOf": [
           {
@@ -13032,7 +13104,7 @@
           }
         ]
       },
-      "China-UnionPay": {
+      "China-UnionPayInstrument": {
         "description": "China UnionPay payment instrument object",
         "allOf": [
           {
@@ -13040,7 +13112,7 @@
           }
         ]
       },
-      "ePay-bg": {
+      "ePay-bgInstrument": {
         "description": "ePay.bg payment instrument object",
         "allOf": [
           {
@@ -13048,7 +13120,7 @@
           }
         ]
       },
-      "EPS": {
+      "EPSInstrument": {
         "description": "EPS payment instrument object",
         "allOf": [
           {
@@ -13056,7 +13128,7 @@
           }
         ]
       },
-      "Flexepin": {
+      "FlexepinInstrument": {
         "description": "Flexepin payment instrument object",
         "allOf": [
           {
@@ -13064,7 +13136,7 @@
           }
         ]
       },
-      "iDEAL": {
+      "iDEALInstrument": {
         "description": "iDEAL payment instrument object",
         "allOf": [
           {
@@ -13072,7 +13144,7 @@
           }
         ]
       },
-      "Klarna": {
+      "KlarnaInstrument": {
         "description": "Klarna payment instrument object",
         "allOf": [
           {
@@ -13080,7 +13152,7 @@
           }
         ]
       },
-      "payment-card": {
+      "payment-cardInstrument": {
         "description": "Payment card payment instrument object",
         "allOf": [
           {
@@ -13104,7 +13176,7 @@
           }
         ]
       },
-      "paypal": {
+      "paypalInstrument": {
         "description": "PayPal payment instrument object",
         "allOf": [
           {
@@ -13128,7 +13200,7 @@
           }
         ]
       },
-      "QQPay": {
+      "QQPayInstrument": {
         "description": "QQPay payment instrument object",
         "allOf": [
           {
@@ -13136,7 +13208,7 @@
           }
         ]
       },
-      "Skrill-Rapid-Transfer": {
+      "Skrill-Rapid-TransferInstrument": {
         "description": "Skrill Rapid Transfer payment instrument object",
         "allOf": [
           {
@@ -13144,7 +13216,7 @@
           }
         ]
       },
-      "SMSVoucher": {
+      "SMSVoucherInstrument": {
         "description": "SMSVoucher payment instrument object",
         "allOf": [
           {
@@ -13152,7 +13224,7 @@
           }
         ]
       },
-      "UPayCard": {
+      "UPayCardInstrument": {
         "description": "SMSVoucher payment instrument object",
         "allOf": [
           {
@@ -13160,7 +13232,7 @@
           }
         ]
       },
-      "WeChat-Pay": {
+      "WeChat-PayInstrument": {
         "description": "WeChat Pay payment instrument object",
         "allOf": [
           {
@@ -14792,6 +14864,8 @@
           },
           "billingAnchor": {
             "description": "The billing anchor settings to override plan settings. To use plan settings, set `null`.\nTo use multiple plans in one subscription they all must have the same billing period,\nthis property allows to subscribe to different plans.\n",
+            "nullable": true,
+            "example": null,
             "allOf": [
               {
                 "$ref": "#/components/schemas/PlanBillingAnchor"
@@ -14801,6 +14875,8 @@
           "recurringInterval": {
             "type": "object",
             "description": "The recurring interval to override plan settings. To use plan settings, set `null`.\nTo use multiple plans in one subscription they all must have the same recurring period length,\nthis property allows to subscribe to different plans.\n",
+            "nullable": true,
+            "example": null,
             "properties": {
               "periodAnchorInstruction": {
                 "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
@@ -14809,6 +14885,7 @@
           },
           "deliveryAddress": {
             "description": "Delivery address",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -14817,6 +14894,7 @@
           },
           "billingAddress": {
             "description": "Billing address",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -14829,7 +14907,9 @@
             "default": true
           },
           "riskMetadata": {
-            "description": "Risk metadata",
+            "nullable": true,
+            "example": null,
+            "description": "Risk metadata. If null, the value would coalesce to the risk metadata captured when creating the payment token.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/RiskMetadata"
@@ -14837,7 +14917,9 @@
             ]
           },
           "startTime": {
-            "description": "Subscription start time",
+            "description": "Subscription start time.  When the value is sent as null, it will use the current time. Only send a value when the subscription is going to start in the future.",
+            "nullable": true,
+            "example": null,
             "type": "string",
             "format": "date-time"
           },
@@ -14851,6 +14933,7 @@
           },
           "couponIds": {
             "type": "array",
+            "nullable": true,
             "description": "A list of coupons to redeem on the customer and restrict to this subscription. Read more about [coupons here](https://help.rebilly.com/invoices-and-subscriptions/coupons-discounts).",
             "writeOnly": true,
             "items": {
@@ -15699,6 +15782,8 @@
               "invoice-past-due",
               "invoice-paid",
               "invoice-partially-paid",
+              "invoice-disputed",
+              "invoice-refunded",
               "subscription-created",
               "subscription-renewed",
               "subscription-activated",
@@ -15784,8 +15869,15 @@
               "invoice-past-due",
               "invoice-paid",
               "invoice-partially-paid",
+              "invoice-disputed",
+              "invoice-refunded",
               "subscription-upgraded",
-              "subscription-downgraded"
+              "subscription-downgraded",
+              "subscription-billing-address-changed",
+              "subscription-delivery-address-changed",
+              "subscription-renewal-time-changed",
+              "subscription-churned",
+              "custom-fields-changed"
             ]
           },
           "triggeredBy": {
@@ -16631,7 +16723,7 @@
             ]
           },
           "notificationUrl": {
-            "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent \nwhen the transaction's result is finalized. Do not trust the notification; \nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code.\n",
+            "description": "The URL where a server-to-server POST notification will be sent.  It  will be sent when the\ntransaction's result is finalized after a timeout or an offsite interaction. Do not trust the\nnotification; follow with a GET request to confirm the result of the transaction. Please\nrespond with a 2xx HTTP status code, or we will reattempt the request again.\n",
             "type": "string",
             "format": "uri"
           },
@@ -16842,10 +16934,12 @@
           "amount": {
             "description": "The transaction amount.  Use `0` for a zero dollar verification. This is important if\nyou want to authorize a payment instrument before giving access to a free trial, for example.\n",
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "example": 97.97
           },
           "invoiceIds": {
             "description": "The array of invoice identifiers.  It's important to note that the transaction\namount can be more or less than the combined invoice amounts.  If the transaction\nis a type `sale` and it is `approved` it will be applied to these invoices in\nthe order of the first issued invoice to the most recently issued invoice.  If\nthere are enough funds to fully pay an invoice, the invoice status will be marked\nas paid.\n",
+            "nullable": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ResourceId"
@@ -16856,6 +16950,7 @@
           },
           "billingAddress": {
             "description": "Billing Address. If not supplied, we use the billing address associated with the payment instrument, and then customer.",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -16865,25 +16960,27 @@
           "requestId": {
             "description": "The request id is **recommended**. It prevents duplicate transaction requests within a short period of time. If a duplicate request is sent with the same `requestId` it will be ignored to prevent double-billing anyone.  It must be unique within a 24-hour period.  We recommend generating a UUID v4 as its value.",
             "type": "string",
+            "nullable": true,
             "maxLength": 50,
             "example": "44433322-2c4y-483z-a0a9-158621f77a21"
           },
           "description": {
+            "nullable": true,
             "description": "The payment description",
             "type": "string",
             "maxLength": 255
           },
           "notificationUrl": {
-            "description": "The URL where a server-to-server notification request type `POST` with an empty body will be sent\nwhen the transaction's result is finalized. Do not trust the notification;\nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code, or we will reattempt the request again.\n",
+            "nullable": true,
+            "description": "The URL where a server-to-server notification request type `POST` with a transaction payload will be sent\nwhen the transaction's result is finalized. Do not trust the notification;\nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code, or we will reattempt the request again.\n",
             "type": "string",
-            "format": "uri",
-            "writeOnly": true
+            "format": "uri"
           },
           "redirectUrl": {
+            "nullable": true,
             "description": "The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.",
             "type": "string",
-            "format": "uri",
-            "writeOnly": true
+            "format": "uri"
           },
           "customFields": {
             "$ref": "#/components/schemas/ResourceCustomFields"
