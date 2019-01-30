@@ -9807,15 +9807,18 @@
           "properties": {
             "label": {
               "description": "The email label",
-              "type": "string"
+              "type": "string",
+              "example": "main"
             },
             "value": {
               "description": "The email value",
-              "type": "string"
+              "type": "string",
+              "example": "rebilly@example.com"
             },
             "primary": {
               "description": "True if email is primary",
-              "type": "boolean"
+              "type": "boolean",
+              "example": true
             }
           }
         }
@@ -9825,45 +9828,62 @@
         "properties": {
           "firstName": {
             "description": "The contact first name",
-            "type": "string"
+            "type": "string",
+            "example": "Benjamin",
+            "nullable": true
           },
           "lastName": {
             "description": "The contact last name",
-            "type": "string"
+            "type": "string",
+            "example": "Franklin",
+            "nullable": true
           },
           "organization": {
             "description": "The contact organization",
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "example": null
           },
           "address": {
             "description": "The contact street address",
             "type": "string",
-            "maxLength": 60
+            "maxLength": 60,
+            "example": "36 Craven St",
+            "nullable": true
           },
           "address2": {
             "description": "The contact street address (second line)",
             "type": "string",
-            "maxLength": 60
+            "maxLength": 60,
+            "nullable": true
           },
           "city": {
             "description": "The contact city",
             "type": "string",
-            "maxLength": 45
+            "maxLength": 45,
+            "nullable": true,
+            "example": "London"
           },
           "region": {
             "description": "The contact region (state)",
             "type": "string",
-            "maxLength": 45
+            "maxLength": 45,
+            "nullable": true,
+            "example": "London"
           },
           "country": {
             "description": "The contact country ISO Alpha-2 code",
             "type": "string",
-            "pattern": "^[A-Z]{2}$"
+            "pattern": "^[A-Z]{2}$",
+            "nullable": true,
+            "example": "GB"
           },
           "postalCode": {
             "description": "The contact postal code",
             "type": "string",
-            "maxLength": 10
+            "maxLength": 10,
+            "nullable": true,
+            "example": "WC2N 5NF"
           },
           "phoneNumbers": {
             "$ref": "#/components/schemas/ContactPhoneNumbers"
@@ -9892,15 +9912,18 @@
           "properties": {
             "label": {
               "description": "The phone label",
-              "type": "string"
+              "type": "string",
+              "example": "main"
             },
             "value": {
               "description": "The phone value",
-              "type": "string"
+              "type": "string",
+              "example": "512-710-1640"
             },
             "primary": {
               "description": "True if phone is primary",
-              "type": "boolean"
+              "type": "boolean",
+              "example": true
             }
           }
         }
@@ -14704,6 +14727,8 @@
           },
           "billingAnchor": {
             "description": "The billing anchor settings to override plan settings. To use plan settings, set `null`.\nTo use multiple plans in one subscription they all must have the same billing period,\nthis property allows to subscribe to different plans.\n",
+            "nullable": true,
+            "example": null,
             "allOf": [
               {
                 "$ref": "#/components/schemas/PlanBillingAnchor"
@@ -14713,6 +14738,8 @@
           "recurringInterval": {
             "type": "object",
             "description": "The recurring interval to override plan settings. To use plan settings, set `null`.\nTo use multiple plans in one subscription they all must have the same recurring period length,\nthis property allows to subscribe to different plans.\n",
+            "nullable": true,
+            "example": null,
             "properties": {
               "periodAnchorInstruction": {
                 "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
@@ -14721,6 +14748,7 @@
           },
           "deliveryAddress": {
             "description": "Delivery address",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -14729,6 +14757,7 @@
           },
           "billingAddress": {
             "description": "Billing address",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -14741,7 +14770,9 @@
             "default": true
           },
           "riskMetadata": {
-            "description": "Risk metadata",
+            "nullable": true,
+            "example": null,
+            "description": "Risk metadata. If null, the value would coalesce to the risk metadata captured when creating the payment token.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/RiskMetadata"
@@ -14749,7 +14780,9 @@
             ]
           },
           "startTime": {
-            "description": "Subscription start time",
+            "description": "Subscription start time.  When the value is sent as null, it will use the current time. Only send a value when the subscription is going to start in the future.",
+            "nullable": true,
+            "example": null,
             "type": "string",
             "format": "date-time"
           },
@@ -14763,6 +14796,7 @@
           },
           "couponIds": {
             "type": "array",
+            "nullable": true,
             "description": "A list of coupons to redeem on the customer and restrict to this subscription. Read more about [coupons here](https://help.rebilly.com/invoices-and-subscriptions/coupons-discounts).",
             "writeOnly": true,
             "items": {
@@ -16763,10 +16797,12 @@
           "amount": {
             "description": "The transaction amount.  Use `0` for a zero dollar verification. This is important if\nyou want to authorize a payment instrument before giving access to a free trial, for example.\n",
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "example": 97.97
           },
           "invoiceIds": {
             "description": "The array of invoice identifiers.  It's important to note that the transaction\namount can be more or less than the combined invoice amounts.  If the transaction\nis a type `sale` and it is `approved` it will be applied to these invoices in\nthe order of the first issued invoice to the most recently issued invoice.  If\nthere are enough funds to fully pay an invoice, the invoice status will be marked\nas paid.\n",
+            "nullable": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ResourceId"
@@ -16777,6 +16813,7 @@
           },
           "billingAddress": {
             "description": "Billing Address. If not supplied, we use the billing address associated with the payment instrument, and then customer.",
+            "nullable": true,
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -16786,20 +16823,24 @@
           "requestId": {
             "description": "The request id is **recommended**. It prevents duplicate transaction requests within a short period of time. If a duplicate request is sent with the same `requestId` it will be ignored to prevent double-billing anyone.  It must be unique within a 24-hour period.  We recommend generating a UUID v4 as its value.",
             "type": "string",
+            "nullable": true,
             "maxLength": 50,
             "example": "44433322-2c4y-483z-a0a9-158621f77a21"
           },
           "description": {
+            "nullable": true,
             "description": "The payment description",
             "type": "string",
             "maxLength": 255
           },
           "notificationUrl": {
+            "nullable": true,
             "description": "The URL where a server-to-server notification request type `POST` with a transaction payload will be sent\nwhen the transaction's result is finalized. Do not trust the notification;\nfollow with a `GET` request to confirm the result of the transaction.  Please respond with a `2xx`\nHTTP status code, or we will reattempt the request again.\n",
             "type": "string",
             "format": "uri"
           },
           "redirectUrl": {
+            "nullable": true,
             "description": "The URL to redirect the end-user when an offsite transaction is completed.  Defaults to the website's configured URL.",
             "type": "string",
             "format": "uri"
