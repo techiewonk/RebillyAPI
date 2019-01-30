@@ -11386,6 +11386,8 @@ components:
             - invoice-past-due
             - invoice-paid
             - invoice-partially-paid
+            - invoice-disputed
+            - invoice-refunded
             - subscription-created
             - subscription-renewed
             - subscription-activated
@@ -11453,6 +11455,8 @@ components:
             - invoice-past-due
             - invoice-paid
             - invoice-partially-paid
+            - invoice-disputed
+            - invoice-refunded
             - subscription-upgraded
             - subscription-downgraded
             - subscription-billing-address-changed
