@@ -14808,12 +14808,6 @@
               "description": "Coupon ID"
             }
           },
-          "poNumber": {
-            "description": "Purchase order number, will be displayed on the issued invoices",
-            "nullable": true,
-            "example": 123456,
-            "type": "string"
-          },
           "_links": {
             "type": "array",
             "description": "The links related to resource",
