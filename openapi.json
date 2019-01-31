@@ -3718,8 +3718,8 @@
         "tags": [
           "Files"
         ],
-        "summary": "Update the File with predefined ID. Note that file can be uploaded with POST only.",
-        "description": "Update the File with predefined ID\n",
+        "summary": "Update the File with predefined ID",
+        "description": "Update the File with predefined ID. Note that file can be uploaded with POST only.\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -14014,13 +14014,13 @@
             "description": "The product's tax category identifier string",
             "type": "string",
             "enum": [
-              99999,
-              20010,
-              40030,
-              51020,
-              51010,
-              31000,
-              30070
+              "99999",
+              "20010",
+              "40030",
+              "51020",
+              "51010",
+              "31000",
+              "30070"
             ]
           },
           "requiresShipping": {
@@ -14031,7 +14031,7 @@
           "accountingCode": {
             "description": "The product accounting code",
             "type": "string",
-            "example": 4010
+            "example": "4010"
           },
           "options": {
             "description": "The product options such as Color, Size, etc.  The product options definition does not include option values.  Those are defined within the Plans.",
