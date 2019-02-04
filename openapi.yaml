@@ -8511,6 +8511,8 @@ components:
             - $ref: '#/components/schemas/ContactObject'
         poNumber:
           description: Purchase order number which will be displayed on the invoice
+          nullable: true
+          example: PO123456
           type: string
         notes:
           description: Notes for the customer which will be displayed on the invoice
@@ -10861,6 +10863,11 @@ components:
           items:
             type: string
             description: Coupon ID
+        poNumber:
+          description: 'Purchase order number, will be displayed on the issued invoices'
+          nullable: true
+          example: PO123456
+          type: string
         _links:
           type: array
           description: The links related to resource
