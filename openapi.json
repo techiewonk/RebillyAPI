@@ -15752,7 +15752,8 @@
               "subscription-delivery-address-changed",
               "subscription-renewal-time-changed",
               "subscription-churned",
-              "custom-fields-changed"
+              "custom-fields-changed",
+              "subscription-items-changed"
             ]
           },
           "triggeredBy": {
