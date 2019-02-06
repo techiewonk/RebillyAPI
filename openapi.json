@@ -15753,7 +15753,9 @@
               "subscription-renewal-time-changed",
               "subscription-churned",
               "custom-fields-changed",
-              "subscription-items-changed"
+              "subscription-items-changed",
+              "subscription-billing-anchor-changed",
+              "subscription-recurring-interval-changed"
             ]
           },
           "triggeredBy": {
