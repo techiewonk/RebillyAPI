@@ -3723,8 +3723,8 @@
         "tags": [
           "Files"
         ],
-        "summary": "Update the File with predefined ID. Note that file can be uploaded with POST only.",
-        "description": "Update the File with predefined ID\n",
+        "summary": "Update the File with predefined ID",
+        "description": "Update the File with predefined ID. Note that file can be uploaded with POST only.\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -11431,8 +11431,14 @@
               }
             ]
           },
+          "poNumber": {
+            "description": "Purchase order number which will be displayed on the invoice",
+            "nullable": true,
+            "example": "PO123456",
+            "type": "string"
+          },
           "notes": {
-            "description": "Notes for the customer which will display on the invoice",
+            "description": "Notes for the customer which will be displayed on the invoice",
             "type": "string"
           },
           "items": {
@@ -14098,13 +14104,13 @@
             "description": "The product's tax category identifier string",
             "type": "string",
             "enum": [
-              99999,
-              20010,
-              40030,
-              51020,
-              51010,
-              31000,
-              30070
+              "99999",
+              "20010",
+              "40030",
+              "51020",
+              "51010",
+              "31000",
+              "30070"
             ]
           },
           "requiresShipping": {
@@ -14115,7 +14121,7 @@
           "accountingCode": {
             "description": "The product accounting code",
             "type": "string",
-            "example": 4010
+            "example": "4010"
           },
           "options": {
             "description": "The product options such as Color, Size, etc.  The product options definition does not include option values.  Those are defined within the Plans.",
@@ -14940,6 +14946,12 @@
               "type": "string",
               "description": "Coupon ID"
             }
+          },
+          "poNumber": {
+            "description": "Purchase order number, will be displayed on the issued invoices",
+            "nullable": true,
+            "example": "PO123456",
+            "type": "string"
           },
           "_links": {
             "type": "array",
@@ -15877,7 +15889,10 @@
               "subscription-delivery-address-changed",
               "subscription-renewal-time-changed",
               "subscription-churned",
-              "custom-fields-changed"
+              "custom-fields-changed",
+              "subscription-items-changed",
+              "subscription-billing-anchor-changed",
+              "subscription-recurring-interval-changed"
             ]
           },
           "triggeredBy": {

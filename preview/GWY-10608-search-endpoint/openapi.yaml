@@ -2945,9 +2945,9 @@ paths:
     put:
       tags:
         - Files
-      summary: Update the File with predefined ID. Note that file can be uploaded with POST only.
+      summary: Update the File with predefined ID
       description: |
-        Update the File with predefined ID
+        Update the File with predefined ID. Note that file can be uploaded with POST only.
       requestBody:
         content:
           application/json:
@@ -8572,8 +8572,13 @@ components:
           description: Invoice's delivery address
           allOf:
             - $ref: '#/components/schemas/ContactObject'
+        poNumber:
+          description: Purchase order number which will be displayed on the invoice
+          nullable: true
+          example: PO123456
+          type: string
         notes:
-          description: Notes for the customer which will display on the invoice
+          description: Notes for the customer which will be displayed on the invoice
           type: string
         items:
           type: array
@@ -10359,13 +10364,13 @@ components:
           description: The product's tax category identifier string
           type: string
           enum:
-            - 99999
-            - 20010
-            - 40030
-            - 51020
-            - 51010
-            - 31000
-            - 30070
+            - '99999'
+            - '20010'
+            - '40030'
+            - '51020'
+            - '51010'
+            - '31000'
+            - '30070'
         requiresShipping:
           description: 'If the product requires shipping, shipping calculations will be applied'
           type: boolean
@@ -10373,7 +10378,7 @@ components:
         accountingCode:
           description: The product accounting code
           type: string
-          example: 4010
+          example: '4010'
         options:
           description: 'The product options such as Color, Size, etc.  The product options definition does not include option values.  Those are defined within the Plans.'
           type: array
@@ -10952,6 +10957,11 @@ components:
           items:
             type: string
             description: Coupon ID
+        poNumber:
+          description: 'Purchase order number, will be displayed on the issued invoices'
+          nullable: true
+          example: PO123456
+          type: string
         _links:
           type: array
           description: The links related to resource
@@ -11594,6 +11604,9 @@ components:
             - subscription-renewal-time-changed
             - subscription-churned
             - custom-fields-changed
+            - subscription-items-changed
+            - subscription-billing-anchor-changed
+            - subscription-recurring-interval-changed
         triggeredBy:
           description: Shows who or what triggered the Timeline message
           type: string
