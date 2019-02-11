@@ -10748,8 +10748,7 @@ components:
           type: string
           description: |
             The status of the subscription service. A subscription starts
-            in the `pending` status, and will become `active` when the
-            service period begins.
+            in the `pending` status, and will become `active` when the service period begins.
           readOnly: true
           enum:
             - pending
@@ -10763,7 +10762,7 @@ components:
           items:
             type: string
             enum:
-              - waiting-payment
+              - initial-payment
               - start-time
             example:
               - initial-payment
