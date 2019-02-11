@@ -4453,6 +4453,121 @@
         }
       }
     },
+    "/invoices/{id}/timeline": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/resourceId"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Retrieve a list of invoice timeline messages",
+        "description": "Retrieve a list of invoice timeline messages\n",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/collectionLimit"
+          },
+          {
+            "$ref": "#/components/parameters/collectionOffset"
+          },
+          {
+            "$ref": "#/components/parameters/collectionFilter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of invoice timeline messages was retrieved successfully",
+            "headers": {
+              "Rate-Limit-Limit": {
+                "$ref": "#/components/headers/Rate-Limit-Limit"
+              },
+              "Rate-Limit-Remaining": {
+                "$ref": "#/components/headers/Rate-Limit-Remaining"
+              },
+              "Rate-Limit-Reset": {
+                "$ref": "#/components/headers/Rate-Limit-Reset"
+              },
+              "Pagination-Total": {
+                "$ref": "#/components/headers/Pagination-Total"
+              },
+              "Pagination-Limit": {
+                "$ref": "#/components/headers/Pagination-Limit"
+              },
+              "Pagination-Offset": {
+                "$ref": "#/components/headers/Pagination-Offset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvoiceTimeline"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AccessForbidden"
+          }
+        }
+      }
+    },
+    "/invoices/{id}/timeline/{messageId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/resourceId"
+        },
+        {
+          "name": "messageId",
+          "in": "path",
+          "description": "The Invoice Timeline message ID",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Retrieve an Invoice Timeline message",
+        "description": "Retrieve a invoice message with specified identifier string\n",
+        "responses": {
+          "200": {
+            "description": "Invoice message was retrieved successfully",
+            "headers": {
+              "Rate-Limit-Limit": {
+                "$ref": "#/components/headers/Rate-Limit-Limit"
+              },
+              "Rate-Limit-Remaining": {
+                "$ref": "#/components/headers/Rate-Limit-Remaining"
+              },
+              "Rate-Limit-Reset": {
+                "$ref": "#/components/headers/Rate-Limit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceTimeline"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
     "/invoices/{id}/void": {
       "parameters": [
         {
@@ -15680,6 +15795,71 @@
           },
           "triggeredBy": {
             "description": "Shows who or what triggered the Timeline message",
+            "type": "string",
+            "readOnly": true,
+            "enum": [
+              "rebilly",
+              "app",
+              "direct-api"
+            ]
+          },
+          "message": {
+            "description": "The message that describes the message details",
+            "type": "string"
+          },
+          "extraData": {
+            "$ref": "#/components/schemas/TimelineExtraData"
+          },
+          "occurredTime": {
+            "description": "Timeline message time",
+            "readOnly": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ServerTimestamp"
+              }
+            ]
+          },
+          "_links": {
+            "type": "array",
+            "description": "The links related to resource",
+            "readOnly": true,
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/SelfLink"
+            }
+          }
+        }
+      },
+      "InvoiceTimeline": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The Timeline message identifier string",
+            "readOnly": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
+          "type": {
+            "description": "Timeline message type",
+            "type": "string",
+            "readOnly": true,
+            "enum": [
+              "invoice-created",
+              "invoice-issued",
+              "invoice-abandoned",
+              "invoice-voided",
+              "invoice-past-due",
+              "invoice-paid",
+              "invoice-partially-paid",
+              "invoice-disputed",
+              "invoice-refunded"
+            ]
+          },
+          "triggeredBy": {
+            "description": "Shows who or what triggered the Timeline event",
             "type": "string",
             "readOnly": true,
             "enum": [
