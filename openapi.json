@@ -15757,7 +15757,8 @@
               "custom-fields-changed",
               "subscription-items-changed",
               "subscription-billing-anchor-changed",
-              "subscription-recurring-interval-changed"
+              "subscription-recurring-interval-changed",
+              "order-risk-metadata-changed"
             ]
           },
           "triggeredBy": {
