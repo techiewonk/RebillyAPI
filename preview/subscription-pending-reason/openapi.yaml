@@ -10759,6 +10759,7 @@ components:
             - paused
         pendingReason:
           type: array
+          description: A list of reasons why the subscription stays in the pending status
           items:
             type: string
             enum:
