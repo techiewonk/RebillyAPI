@@ -14116,6 +14116,7 @@
             "description": "The product's tax category identifier string",
             "type": "string",
             "enum": [
+              "00000",
               "99999",
               "20010",
               "40030",
