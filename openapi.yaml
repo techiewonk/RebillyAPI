@@ -3559,6 +3559,37 @@ paths:
                   $ref: '#/components/schemas/InvoiceTimeline'
         '401':
           $ref: '#/components/responses/AccessForbidden'
+    post:
+      tags:
+        - Invoices
+      summary: Create an invoice Timeline comment
+      description: |
+        Create an invoice Timeline comment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceTimeline'
+        description: Invoice Timeline resource
+        required: true
+      responses:
+        '201':
+          description: Invoice Timeline comment was created
+          headers:
+            Rate-Limit-Limit:
+              $ref: '#/components/headers/Rate-Limit-Limit'
+            Rate-Limit-Remaining:
+              $ref: '#/components/headers/Rate-Limit-Remaining'
+            Rate-Limit-Reset:
+              $ref: '#/components/headers/Rate-Limit-Reset'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceTimeline'
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
+        '422':
+          $ref: '#/components/responses/InvalidDataError'
   '/invoices/{id}/timeline/{messageId}':
     parameters:
       - $ref: '#/components/parameters/resourceId'
@@ -3592,6 +3623,28 @@ paths:
           $ref: '#/components/responses/AccessForbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+        - Invoices
+      summary: Delete an Invoice Timeline message
+      description: |
+        Delete an Invoice Timeline message with predefined identifier string
+      responses:
+        '204':
+          description: Invoice Timeline message was deleted
+          headers:
+            Rate-Limit-Limit:
+              $ref: '#/components/headers/Rate-Limit-Limit'
+            Rate-Limit-Remaining:
+              $ref: '#/components/headers/Rate-Limit-Remaining'
+            Rate-Limit-Reset:
+              $ref: '#/components/headers/Rate-Limit-Reset'
+        '401':
+          $ref: '#/components/responses/AccessForbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
   '/invoices/{id}/void':
     parameters:
       - $ref: '#/components/parameters/resourceId'
@@ -11664,6 +11717,7 @@ components:
           type: string
           readOnly: true
           enum:
+            - timeline-comment-created
             - invoice-created
             - invoice-issued
             - invoice-abandoned
