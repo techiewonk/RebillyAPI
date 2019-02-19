@@ -16083,7 +16083,8 @@
               "invoice-paid",
               "invoice-partially-paid",
               "invoice-disputed",
-              "invoice-refunded"
+              "invoice-refunded",
+              "email-message-sent"
             ]
           },
           "triggeredBy": {
