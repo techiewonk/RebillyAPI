@@ -16084,7 +16084,7 @@
               "invoice-partially-paid",
               "invoice-disputed",
               "invoice-refunded",
-              "invoice-payment-declined",
+              "invoice-renewal-payment-declined",
               "email-message-sent"
             ]
           },
