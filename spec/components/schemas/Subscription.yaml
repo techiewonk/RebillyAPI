@@ -46,7 +46,7 @@ properties:
         - initial-payment
         - start-time
         - custom
-      default: ['initial-payment', 'start-time']
+    default: ['initial-payment', 'start-time']
   billingStatus:
     description: |
       The billing status of the most recent invoice.  It may
