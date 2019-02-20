@@ -14660,20 +14660,21 @@
               "paused"
             ]
           },
-          "pendingReason": {
+          "pendingReasons": {
             "type": "array",
-            "description": "A list of reasons why the subscription stays in the pending status",
+            "description": "A list of reasons why the subscription should stay in the pending status.\n- \"initial-payment\" blocks the activation until the initial invoice is paid\n- \"start-time\" blocks the activation until startTime < now\n- \"custom\" is to be used when a business requires a later activation.\n  The subscription won't be activated until the field is updated without this pending reason.\n",
             "items": {
               "type": "string",
               "enum": [
                 "initial-payment",
-                "start-time"
-              ],
-              "example": [
-                "initial-payment",
-                "start-time"
+                "start-time",
+                "custom"
               ]
-            }
+            },
+            "default": [
+              "initial-payment",
+              "start-time"
+            ]
           },
           "billingStatus": {
             "description": "The billing status of the most recent invoice.  It may\nhelp you determine if you should change the service status\nsuch as suspending the service.\n",
