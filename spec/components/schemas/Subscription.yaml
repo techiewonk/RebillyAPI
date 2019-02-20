@@ -35,7 +35,7 @@ properties:
       - paused
   autoActivation:
     type: boolean
-    descrition: |
+    description: |
       If `true` then the subscription becomes active when initial invoice is paid.
       If `false` the subscription will remain in status "pending" until status is set `active`.
     default: true
