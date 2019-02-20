@@ -23,9 +23,9 @@ properties:
   status:
     type: string
     description: |
-      The status of the subscription service. A subscription starts
-      in the `pending` status, and will become `active` when the
-      service period begins. Status `active` can be assigned forcefully.
+      The status of the subscription. A subscription starts in the `pending` status,
+      and becomes `active` either when the initial invoice is paid (when autoActivation is on)
+      or when status `active` is assigned by user.
     enum:
       - pending
       - active
@@ -33,10 +33,12 @@ properties:
       - churned
       - suspended
       - paused
-  forcePending:
+  autoActivation:
     type: boolean
-    descrition: If `true` then the subscription will remain in status "pending" until it's updated with `false`.
-    default: false
+    descrition: |
+      If `true` then the subscription becomes active when initial invoice is paid.
+      If `false` the subscription will remain in status "pending" until status is set `active`.
+    default: true
   billingStatus:
     description: |
       The billing status of the most recent invoice.  It may
