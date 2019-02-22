@@ -11877,6 +11877,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SubscriptionLink"
+                },
+                {
+                  "$ref": "#/components/schemas/ProductLink"
                 }
               ]
             }

@@ -8857,6 +8857,7 @@ components:
             anyOf:
               - $ref: '#/components/schemas/SelfLink'
               - $ref: '#/components/schemas/SubscriptionLink'
+              - $ref: '#/components/schemas/ProductLink'
     InvoiceTax:
       type: object
       readOnly: true
