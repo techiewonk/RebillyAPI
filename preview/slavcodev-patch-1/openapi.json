@@ -11866,7 +11866,7 @@
             "type": "integer"
           },
           "createdTime": {
-            "description": "Invoice created time",
+            "description": "Invoice item created time",
             "allOf": [
               {
                 "$ref": "#/components/schemas/ServerTimestamp"
@@ -11874,7 +11874,7 @@
             ]
           },
           "updatedTime": {
-            "description": "Invoice updated time",
+            "description": "Invoice item updated time",
             "allOf": [
               {
                 "$ref": "#/components/schemas/ServerTimestamp"
