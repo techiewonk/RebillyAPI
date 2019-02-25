@@ -11796,6 +11796,7 @@ components:
             - invoice-partially-paid
             - invoice-disputed
             - invoice-refunded
+            - invoice-renewal-payment-declined
         triggeredBy:
           description: Shows who or what triggered the Timeline message
           type: string

@@ -16170,7 +16170,8 @@
               "invoice-paid",
               "invoice-partially-paid",
               "invoice-disputed",
-              "invoice-refunded"
+              "invoice-refunded",
+              "invoice-renewal-payment-declined"
             ]
           },
           "triggeredBy": {
