@@ -7566,6 +7566,7 @@ components:
           type: string
           maxLength: 40
           example: 056ae6d97c788b9e98b049ebafd7b229bf852221
+          readOnly: true
         createdTime:
           description: The contact created time
           allOf:
@@ -9631,9 +9632,6 @@ components:
         expMonth:
           description: Card's expiry month.
           type: integer
-        cvv:
-          description: Card's cvv (card verification value).
-          type: string
         billingAddress:
           description: The Billing Address.
           allOf:
@@ -9734,6 +9732,7 @@ components:
         cvv:
           description: Card's cvv (card verification value).
           type: string
+          writeOnly: true
         billingAddress:
           description: The Billing Address.
           allOf:
