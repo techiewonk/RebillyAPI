@@ -9923,7 +9923,8 @@
               "ip-address",
               "country",
               "fingerprint",
-              "bin"
+              "bin",
+              "address"
             ]
           },
           "value": {
