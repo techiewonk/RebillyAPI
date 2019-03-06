@@ -10970,6 +10970,12 @@ components:
           items:
             allOf:
               - $ref: '#/components/schemas/Transaction'
+        searched:
+          description: 'Names of searched resources, even if they returned nothing'
+          readOnly: true
+          type: array
+          items:
+            type: string
     ServerTimestamp:
       type: string
       description: 'Read-only timestamp, automatically assigned on back-end.'
