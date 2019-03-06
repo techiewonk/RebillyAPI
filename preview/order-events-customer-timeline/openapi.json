@@ -16127,7 +16127,10 @@
               "transaction-discrepancy-found",
               "transaction-amount-discrepancy-found",
               "email-message-sent",
-              "custom-event-processed"
+              "custom-event-processed",
+              "order-upgraded",
+              "order-downgraded",
+              "order-churned"
             ]
           },
           "triggeredBy": {
