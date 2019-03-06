@@ -11670,6 +11670,22 @@
               ]
             }
           },
+          "autopayScheduledTime": {
+            "description": "Invoice autopay scheduled time",
+            "readOnly": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ServerTimestamp"
+              }
+            ]
+          },
+          "autopayRetryNumber": {
+            "description": "Invoice autopay retry number",
+            "readOnly": true,
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
           "retryInstruction": {
             "description": "The invoice retry instruction",
             "type": "object",
