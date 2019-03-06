@@ -41,6 +41,9 @@ properties:
       - order-activated
       - order-reactivated
       - order-canceled
+      - order-upgraded
+      - order-downgraded
+      - order-churned
       - transaction-approved
       - transaction-canceled
       - transaction-declined
