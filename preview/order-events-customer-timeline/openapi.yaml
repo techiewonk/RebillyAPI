@@ -11742,6 +11742,9 @@ components:
             - order-activated
             - order-reactivated
             - order-canceled
+            - order-upgraded
+            - order-downgraded
+            - order-churned
             - transaction-approved
             - transaction-canceled
             - transaction-declined
@@ -11752,9 +11755,6 @@ components:
             - transaction-amount-discrepancy-found
             - email-message-sent
             - custom-event-processed
-            - order-upgraded
-            - order-downgraded
-            - order-churned
         triggeredBy:
           description: Shows who or what triggered the Timeline message
           type: string

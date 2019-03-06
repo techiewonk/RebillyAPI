@@ -16118,6 +16118,9 @@
               "order-activated",
               "order-reactivated",
               "order-canceled",
+              "order-upgraded",
+              "order-downgraded",
+              "order-churned",
               "transaction-approved",
               "transaction-canceled",
               "transaction-declined",
@@ -16127,10 +16130,7 @@
               "transaction-discrepancy-found",
               "transaction-amount-discrepancy-found",
               "email-message-sent",
-              "custom-event-processed",
-              "order-upgraded",
-              "order-downgraded",
-              "order-churned"
+              "custom-event-processed"
             ]
           },
           "triggeredBy": {
