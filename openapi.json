@@ -11672,12 +11672,8 @@
           },
           "autopayScheduledTime": {
             "description": "Invoice autopay scheduled time",
-            "readOnly": true,
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ServerTimestamp"
-              }
-            ]
+            "type": "string",
+            "format": "date-time"
           },
           "autopayRetryNumber": {
             "description": "Invoice autopay retry number",
