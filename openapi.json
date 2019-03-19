@@ -11606,6 +11606,12 @@
             "format": "double",
             "readOnly": true
           },
+          "taxAmount": {
+            "description": "The Invoice's taxes amount",
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
           "shippingAmount": {
             "description": "The Invoice's shipping amount",
             "type": "number",
