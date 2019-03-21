@@ -2290,6 +2290,12 @@ paths:
               $ref: '#/components/headers/Rate-Limit-Remaining'
             Rate-Limit-Reset:
               $ref: '#/components/headers/Rate-Limit-Reset'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerMerge'
         '401':
           $ref: '#/components/responses/AccessForbidden'
         '404':
@@ -8170,6 +8176,7 @@ components:
       description: List of changes for the merge
       items:
         type: string
+        example: Subscription "abc" is moved to the target
     CustomField:
       description: A separate Custom Field schema
       type: object
