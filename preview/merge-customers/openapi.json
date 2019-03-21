@@ -2812,6 +2812,57 @@
         ]
       }
     },
+    "/customers/{duplicateId}/merge-to/{targetId}": {
+      "parameters": [
+        {
+          "name": "duplicateId",
+          "in": "path",
+          "description": "The duplicate customer's ID",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "targetId",
+          "in": "path",
+          "description": "The target customer's ID",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Merge one customer to another one",
+        "description": "Merge one duplicate customer to another target customer and delete the former.",
+        "responses": {
+          "204": {
+            "description": "Customer has been merged and removed",
+            "headers": {
+              "Rate-Limit-Limit": {
+                "$ref": "#/components/headers/Rate-Limit-Limit"
+              },
+              "Rate-Limit-Remaining": {
+                "$ref": "#/components/headers/Rate-Limit-Remaining"
+              },
+              "Rate-Limit-Reset": {
+                "$ref": "#/components/headers/Rate-Limit-Reset"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/AccessForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
     "/customers/{id}": {
       "parameters": [
         {
@@ -8029,57 +8080,6 @@
             "source": "$subscriptionForm = new Rebilly\\Entities\\Subscription();\n$subscriptionForm->setCustomerId('customerId');\n$subscriptionForm->setWebsiteId('websiteId');\n$subscriptionForm->setItems([\n    [\n        'planId' => 'my-plan',\n        'quantity' => 1,\n    ],\n]);\n$subscriptionForm->setBillingAddress([\n    'firstName' => 'John',\n    'lastName' => 'Doe',\n    'organization' => 'Test LTD',\n    'address' => 'Test street 5',\n    'address2' => 'Test house 5',\n    'city' => 'New York',\n    'region' => 'Long Island',\n    'country' => 'US',\n    'postalCode' => '123456',\n    'emails' => [\n        [\n            'label' => 'main',\n            'value' => 'johndoe@testemail.com',\n            'primary' => true,\n        ],\n        [\n            'label' => 'secondary',\n            'value' => 'otheremail@testemail.com',\n        ],\n    ],\n    'phoneNumbers' => [\n        [\n            'label' => 'work',\n            'value' => '+123456789',\n            'primary' => true,\n        ],\n        [\n            'label' => 'home',\n            'value' => '+9874654321',\n        ],\n    ],\n]);\n\ntry {\n    $subscription = $client->subscriptions()->create($subscriptionForm);\n} catch (UnprocessableEntityException $e) {\n    echo $e->getMessage();\n}\n"
           }
         ]
-      }
-    },
-    "/subscriptions/{duplicateId}/merge-to/{targetId}": {
-      "parameters": [
-        {
-          "name": "duplicateId",
-          "in": "path",
-          "description": "The duplicate customer's ID",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "targetId",
-          "in": "path",
-          "description": "The target customer's ID",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "summary": "Merge one customer to another one",
-        "description": "Merge one duplicate customer to another target customer and delete the former.",
-        "responses": {
-          "204": {
-            "description": "Customer has been merged and removed",
-            "headers": {
-              "Rate-Limit-Limit": {
-                "$ref": "#/components/headers/Rate-Limit-Limit"
-              },
-              "Rate-Limit-Remaining": {
-                "$ref": "#/components/headers/Rate-Limit-Remaining"
-              },
-              "Rate-Limit-Reset": {
-                "$ref": "#/components/headers/Rate-Limit-Reset"
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/AccessForbidden"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
-        }
       }
     },
     "/subscriptions/{id}": {
