@@ -2840,7 +2840,7 @@
         "summary": "Merge one customer to another one",
         "description": "Merge one duplicate customer to another target customer and delete the former.",
         "responses": {
-          "204": {
+          "201": {
             "description": "Customer has been merged and removed",
             "headers": {
               "Rate-Limit-Limit": {
@@ -10955,6 +10955,13 @@
             "type": "number",
             "format": "double"
           }
+        }
+      },
+      "CustomerMerge": {
+        "type": "array",
+        "description": "List of changes for the merge",
+        "items": {
+          "type": "string"
         }
       },
       "CustomField": {
