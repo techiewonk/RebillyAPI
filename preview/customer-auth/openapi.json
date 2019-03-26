@@ -936,7 +936,7 @@
           "Customer Authentication"
         ],
         "summary": "Exchange",
-        "description": "Exchange Authentication Token for JWT\n\nIt will also make Authentication Token non-valid any more, so it can be exchanged only once.\n",
+        "description": "Exchange Authentication Token for JWT\n\nIt will also invalidate an Authentication Token (so it can only be exchanged once).\n",
         "security": [
           {
             "SecretApiKey": []
