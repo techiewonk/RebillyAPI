@@ -10840,16 +10840,6 @@ components:
             - day-of-week
       required:
         - method
-    DayOfWeek:
-      type: string
-      enum:
-        - Sunday
-        - Monday
-        - Tuesday
-        - Wednesday
-        - Thursday
-        - Friday
-        - Saturday
     InvoiceRetryScheduleInstruction:
       type: object
       description: The calculation instruction of scheduled time
@@ -10950,21 +10940,6 @@ components:
             - immediately
             - day-of-month
             - day-of-week
-    TimeUnit:
-      type: string
-      enum:
-        - second
-        - seconds
-        - minute
-        - minutes
-        - hour
-        - hours
-        - day
-        - days
-        - month
-        - months
-        - year
-        - years
     Search:
       type: object
       properties:
