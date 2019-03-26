@@ -806,7 +806,7 @@
           "Customer Authentication"
         ],
         "summary": "Login",
-        "description": "Login a user (customer)\n",
+        "description": "Login a customer\n",
         "security": [
           {
             "SecretApiKey": []
@@ -936,7 +936,7 @@
           "Customer Authentication"
         ],
         "summary": "Exchange",
-        "description": "Exchange Authentication Token for JWT\n\nIt will also logout a user under this token\n",
+        "description": "Exchange Authentication Token for JWT\n\nIt will also make Authentication Token non-valid any more, so it can be exchanged only once.\n",
         "security": [
           {
             "SecretApiKey": []
@@ -982,8 +982,8 @@
         "tags": [
           "Customer Authentication"
         ],
-        "summary": "Logout a user",
-        "description": "Logout a user\n",
+        "summary": "Logout a customer",
+        "description": "Logout a customer\n",
         "security": [
           {
             "SecretApiKey": []
@@ -997,7 +997,7 @@
         ],
         "responses": {
           "204": {
-            "description": "User was logged out",
+            "description": "Customer was logged out",
             "headers": {
               "Rate-Limit-Limit": {
                 "$ref": "#/components/headers/Rate-Limit-Limit"
