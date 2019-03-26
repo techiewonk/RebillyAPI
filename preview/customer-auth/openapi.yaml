@@ -707,7 +707,7 @@ paths:
       description: |
         Exchange Authentication Token for JWT
 
-        It will also logout a used under this token
+        It will also logout a user under this token
       security:
         - SecretApiKey: []
         - JWT: []

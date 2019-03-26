@@ -936,7 +936,7 @@
           "Customer Authentication"
         ],
         "summary": "Exchange",
-        "description": "Exchange Authentication Token for JWT\n\nIt will also logout a used under this token\n",
+        "description": "Exchange Authentication Token for JWT\n\nIt will also logout a user under this token\n",
         "security": [
           {
             "SecretApiKey": []
