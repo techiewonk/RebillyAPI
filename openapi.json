@@ -13179,24 +13179,11 @@
             ]
           },
           "brand": {
-            "description": "Payment Card brand",
-            "type": "string",
             "readOnly": true,
-            "enum": [
-              "Visa",
-              "MasterCard",
-              "American Express",
-              "Discover",
-              "Maestro",
-              "Solo",
-              "Electron",
-              "JCB",
-              "Voyager",
-              "Diners Club",
-              "Switch",
-              "Laser",
-              "China UnionPay",
-              "AstroPay Card"
+            "allOf": [
+              {
+                "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/payment-instruments/payment-card-brands.json"
+              }
             ]
           },
           "bankCountry": {
@@ -14803,18 +14790,6 @@
           "method"
         ]
       },
-      "DayOfWeek": {
-        "type": "string",
-        "enum": [
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ]
-      },
       "InvoiceRetryScheduleInstruction": {
         "type": "object",
         "description": "The calculation instruction of scheduled time",
@@ -14864,7 +14839,14 @@
                 "minimum": 1
               },
               "unit": {
-                "$ref": "#/components/schemas/TimeUnit"
+                "allOf": [
+                  {
+                    "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/time-unit.json"
+                  },
+                  {
+                    "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/time-plural-unit.json"
+                  }
+                ]
               }
             },
             "required": [
@@ -14895,7 +14877,7 @@
                 "description": "The day of the month when event will be scheduled.\nBe aware if the month has less days,\nthe last day of the month will be selected.\n"
               },
               "time": {
-                "$ref": "#/components/schemas/Time"
+                "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/extended-time-iso8601.json"
               }
             },
             "required": [
@@ -14919,7 +14901,7 @@
             "type": "object",
             "properties": {
               "day": {
-                "$ref": "#/components/schemas/DayOfWeek"
+                "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/long-day-of-week.json"
               },
               "week": {
                 "type": "string",
@@ -14931,7 +14913,7 @@
                 ]
               },
               "time": {
-                "$ref": "#/components/schemas/Time"
+                "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/extended-time-iso8601.json"
               }
             },
             "required": [
@@ -14976,28 +14958,6 @@
             ]
           }
         }
-      },
-      "Time": {
-        "type": "string",
-        "format": "date-time",
-        "pattern": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](([+-]([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])|Z)?$"
-      },
-      "TimeUnit": {
-        "type": "string",
-        "enum": [
-          "second",
-          "seconds",
-          "minute",
-          "minutes",
-          "hour",
-          "hours",
-          "day",
-          "days",
-          "month",
-          "months",
-          "year",
-          "years"
-        ]
       },
       "Search": {
         "type": "object",
