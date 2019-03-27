@@ -14846,7 +14846,7 @@
                 "minimum": 1
               },
               "unit": {
-                "allOf": [
+                "oneOf": [
                   {
                     "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/time-unit.json"
                   },
