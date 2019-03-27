@@ -10860,11 +10860,13 @@ components:
     auto:
       allOf:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
+        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
     date-interval:
       allOf:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
         - $ref: '#/components/schemas/CustomEventScheduleInstruction'
         - $ref: '#/components/schemas/BillingScheduleInstruction'
+        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
         - type: object
           properties:
             duration:
@@ -10883,6 +10885,7 @@ components:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
         - $ref: '#/components/schemas/CustomEventScheduleInstruction'
         - $ref: '#/components/schemas/ServicePeriodAnchorInstruction'
+        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
         - type: object
           properties:
             day:
@@ -10902,6 +10905,7 @@ components:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
         - $ref: '#/components/schemas/CustomEventScheduleInstruction'
         - $ref: '#/components/schemas/ServicePeriodAnchorInstruction'
+        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
         - type: object
           properties:
             day:
@@ -10922,10 +10926,12 @@ components:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
         - $ref: '#/components/schemas/BillingScheduleInstruction'
         - $ref: '#/components/schemas/ServicePeriodAnchorInstruction'
+        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
     intelligent:
       allOf:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
         - $ref: '#/components/schemas/CustomEventScheduleInstruction'
+        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
         - type: object
           properties:
             duration:

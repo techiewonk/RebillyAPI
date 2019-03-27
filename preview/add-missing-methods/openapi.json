@@ -14817,6 +14817,9 @@
         "allOf": [
           {
             "$ref": "#/components/schemas/CommonScheduleInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           }
         ]
       },
@@ -14830,6 +14833,9 @@
           },
           {
             "$ref": "#/components/schemas/BillingScheduleInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           },
           {
             "type": "object",
@@ -14869,6 +14875,9 @@
             "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
           },
           {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
+          },
+          {
             "type": "object",
             "properties": {
               "day": {
@@ -14897,6 +14906,9 @@
           },
           {
             "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           },
           {
             "type": "object",
@@ -14933,6 +14945,9 @@
           },
           {
             "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           }
         ]
       },
@@ -14943,6 +14958,9 @@
           },
           {
             "$ref": "#/components/schemas/CustomEventScheduleInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           },
           {
             "type": "object",
