@@ -953,7 +953,22 @@
         "summary": "Create a Bank Account",
         "description": "Create a Bank Account\n",
         "requestBody": {
-          "$ref": "#/components/requestBodies/BankAccount"
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/BankAccountCreateToken"
+                  },
+                  {
+                    "$ref": "#/components/schemas/BankAccountCreatePlain"
+                  }
+                ]
+              }
+            }
+          },
+          "description": "BankAccount resource",
+          "required": true
         },
         "responses": {
           "201": {
@@ -1106,7 +1121,22 @@
         "summary": "Create a BankAccount with predefined ID",
         "description": "Create or update a BankAccount with predefined identifier string\n",
         "requestBody": {
-          "$ref": "#/components/requestBodies/BankAccount"
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/BankAccountCreateToken"
+                  },
+                  {
+                    "$ref": "#/components/schemas/BankAccountCreatePlain"
+                  }
+                ]
+              }
+            }
+          },
+          "description": "BankAccount resource",
+          "required": true
         },
         "responses": {
           "200": {
@@ -9843,7 +9873,7 @@
             "type": "string"
           },
           "routingNumber": {
-            "description": "Bank's Routing Number. Required if bank account is not created from Token for BBAN account number type.",
+            "description": "Bank's Routing Number.",
             "type": "string"
           },
           "accountNumberType": {
@@ -9855,13 +9885,8 @@
               "IBAN"
             ]
           },
-          "accountNumber": {
-            "description": "Bank's Account Number. Required if bank account is not created from Token.",
-            "type": "string",
-            "writeOnly": true
-          },
           "accountType": {
-            "description": "Bank's Account type. Required if bank account is not created from Token for BBAN account number type.",
+            "description": "Bank's Account type.",
             "type": "string",
             "enum": [
               "checking",
@@ -9869,16 +9894,12 @@
               "other"
             ]
           },
-          "token": {
-            "description": "Bank Account Token. Use without any other fields",
-            "type": "string"
-          },
           "bic": {
             "description": "Bank Identifier Code",
             "type": "string"
           },
           "address": {
-            "description": "The Address. Required if bank account is not created from Token",
+            "description": "The Address.",
             "allOf": [
               {
                 "$ref": "#/components/schemas/ContactObject"
@@ -9932,6 +9953,101 @@
                 }
               ]
             }
+          }
+        }
+      },
+      "BankAccountCreatePlain": {
+        "type": "object",
+        "required": [
+          "customerId",
+          "accountNumberType",
+          "address"
+        ],
+        "properties": {
+          "customerId": {
+            "description": "The Customer's ID.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
+          "bankName": {
+            "description": "Bank's name.",
+            "type": "string"
+          },
+          "routingNumber": {
+            "description": "Bank's Routing Number. Required for BBAN account number type.",
+            "type": "string"
+          },
+          "accountNumberType": {
+            "description": "Bank's Account Number type. A valid value is basic bank account number (BBAN) or international bank account number (IBAN).",
+            "type": "string",
+            "default": "BBAN",
+            "enum": [
+              "BBAN",
+              "IBAN"
+            ]
+          },
+          "accountNumber": {
+            "description": "Bank's Account Number.",
+            "type": "string"
+          },
+          "accountType": {
+            "description": "Bank's Account type. Required for BBAN account number type.",
+            "type": "string",
+            "enum": [
+              "checking",
+              "savings",
+              "other"
+            ]
+          },
+          "bic": {
+            "description": "Bank Identifier Code",
+            "type": "string"
+          },
+          "address": {
+            "description": "The Address.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ContactObject"
+              }
+            ]
+          },
+          "status": {
+            "description": "Bank Account status",
+            "type": "string",
+            "enum": [
+              "active",
+              "deactivated"
+            ]
+          },
+          "customFields": {
+            "$ref": "#/components/schemas/ResourceCustomFields"
+          }
+        }
+      },
+      "BankAccountCreateToken": {
+        "type": "object",
+        "required": [
+          "customerId",
+          "token"
+        ],
+        "properties": {
+          "customerId": {
+            "description": "The Customer's ID.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResourceId"
+              }
+            ]
+          },
+          "token": {
+            "description": "BankAccountToken ID.",
+            "type": "string"
+          },
+          "customFields": {
+            "$ref": "#/components/schemas/ResourceCustomFields"
           }
         }
       },
