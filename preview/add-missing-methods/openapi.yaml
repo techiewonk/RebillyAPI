@@ -10849,7 +10849,6 @@ components:
         method:
           type: string
           enum:
-            - auto
             - intelligent
             - immediately
             - date-interval
@@ -10860,7 +10859,6 @@ components:
     auto:
       allOf:
         - $ref: '#/components/schemas/CommonScheduleInstruction'
-        - $ref: '#/components/schemas/InvoiceRetryScheduleInstruction'
     date-interval:
       allOf:
         - $ref: '#/components/schemas/CommonScheduleInstruction'

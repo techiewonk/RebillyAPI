@@ -14800,7 +14800,6 @@
           "method": {
             "type": "string",
             "enum": [
-              "auto",
               "intelligent",
               "immediately",
               "date-interval",
@@ -14817,9 +14816,6 @@
         "allOf": [
           {
             "$ref": "#/components/schemas/CommonScheduleInstruction"
-          },
-          {
-            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           }
         ]
       },
