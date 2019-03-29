@@ -10013,6 +10013,11 @@
             "type": "string",
             "readOnly": true
           },
+          "last4": {
+            "description": "The last 4 digits of the bank account",
+            "type": "string",
+            "readOnly": true
+          },
           "status": {
             "description": "Bank Account status",
             "type": "string",
