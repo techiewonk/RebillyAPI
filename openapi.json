@@ -15049,6 +15049,9 @@
             "$ref": "#/components/schemas/BillingScheduleInstruction"
           },
           {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
+          },
+          {
             "type": "object",
             "properties": {
               "duration": {
@@ -15057,7 +15060,7 @@
                 "minimum": 1
               },
               "unit": {
-                "allOf": [
+                "oneOf": [
                   {
                     "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/time-unit.json"
                   },
@@ -15084,6 +15087,9 @@
           },
           {
             "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           },
           {
             "type": "object",
@@ -15114,6 +15120,9 @@
           },
           {
             "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
           },
           {
             "type": "object",
@@ -15150,6 +15159,46 @@
           },
           {
             "$ref": "#/components/schemas/ServicePeriodAnchorInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
+          }
+        ]
+      },
+      "intelligent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommonScheduleInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/CustomEventScheduleInstruction"
+          },
+          {
+            "$ref": "#/components/schemas/InvoiceRetryScheduleInstruction"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "integer",
+                "description": "The number of the units",
+                "minimum": 1
+              },
+              "unit": {
+                "oneOf": [
+                  {
+                    "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/time-unit.json"
+                  },
+                  {
+                    "$ref": "https://rebilly.github.io/api-standards/schema/json-schema-draft-04/date-time/time-plural-unit.json"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "duration",
+              "unit"
+            ]
           }
         ]
       },
