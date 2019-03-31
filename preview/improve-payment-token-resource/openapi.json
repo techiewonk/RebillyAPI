@@ -13996,14 +13996,7 @@
             "readOnly": true,
             "minItems": 1,
             "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/SelfLink"
-                },
-                {
-                  "$ref": "#/components/schemas/LeadSourceLink"
-                }
-              ]
+              "$ref": "#/components/schemas/SelfLink"
             }
           }
         }
@@ -14024,7 +14017,7 @@
             "readOnly": true
           },
           "last4": {
-            "description": "Payment Card PAN's last 4 digits",
+            "description": "Payment Card PAN's or Bank Account Number's last 4 digits",
             "type": "string",
             "readOnly": true
           },
