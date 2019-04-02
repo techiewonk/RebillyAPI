@@ -32,6 +32,8 @@ enum:
   - iDEAL
   - InstaDebit
   - instant-bank-transfer
+  - Interac-online
+  - Interac-eTransfer
   - invoice
   - Jeton
   - Klarna
