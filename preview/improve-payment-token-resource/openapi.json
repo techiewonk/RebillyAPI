@@ -14044,11 +14044,11 @@
           },
           "routingNumber": {
             "description": "Bank Routing Number, required if the method is `bank-account`",
-            "type": "integer"
+            "type": "string"
           },
           "accountNumber": {
             "description": "Bank Account Number, required if the method is `bank-account`",
-            "type": "integer",
+            "type": "string",
             "writeOnly": true
           },
           "accountType": {
