@@ -10219,6 +10219,7 @@ components:
       type: object
       required:
         - method
+        - billingAddress
       properties:
         id:
           description: The token identifier string
@@ -10234,7 +10235,6 @@ components:
           $ref: '#/components/schemas/Method'
         paymentInstrument:
           description: 'The payment instrument details, if appropriate based on the method.'
-          writeOnly: true
           allOf:
             - $ref: '#/components/schemas/PaymentTokenInstrument'
         fingerprint:
@@ -10245,7 +10245,25 @@ components:
           allOf:
             - $ref: '#/components/schemas/ContactObject'
         leadSource:
-          $ref: '#/components/schemas/LeadSource'
+          allOf:
+            - $ref: '#/components/schemas/LeadSource'
+          writeOnly: true
+        createdTime:
+          description: Token created time
+          allOf:
+            - $ref: '#/components/schemas/ServerTimestamp'
+        updatedTime:
+          description: Token updated time
+          allOf:
+            - $ref: '#/components/schemas/ServerTimestamp'
+        usageTime:
+          description: Token usage time
+          allOf:
+            - $ref: '#/components/schemas/ServerTimestamp'
+        expirationTime:
+          description: Token expiration time
+          allOf:
+            - $ref: '#/components/schemas/ServerTimestamp'
         _links:
           type: array
           description: The links related to resource
@@ -10258,25 +10276,41 @@ components:
       description: Payment Token instrument object
       properties:
         pan:
-          description: 'The card PAN (Primary Account Number), required if the method is `payment-card`'
+          description: 'Payment Card PAN (Primary Account Number), required if the method is `payment-card`'
           type: string
+          writeOnly: true
+        bin:
+          description: Payment Card BIN (the PAN's first 6 digits)
+          type: string
+          format: bin
+          readOnly: true
+        last4:
+          description: Payment Card PAN's or Bank Account Number's last 4 digits
+          type: string
+          readOnly: true
+        brand:
+          readOnly: true
+          allOf:
+            - $ref: 'https://rebilly.github.io/api-standards/schema/json-schema-draft-04/payment-instruments/payment-card-brands.json'
         expMonth:
-          description: 'Card''s expiry month, required if the method is `payment-card`'
+          description: 'Payment Card expiry month, required if the method is `payment-card`'
           type: integer
         expYear:
-          description: 'Card''s expiry year, required if the method is `payment-card`'
+          description: 'Payment Card expiry year, required if the method is `payment-card`'
           type: integer
         cvv:
-          description: The CVV/CVC of the payment card
+          description: Payment Card CVV/CVC
           type: string
+          writeOnly: true
         routingNumber:
-          description: 'Routing Number, required if the method is `bank-account`'
-          type: integer
+          description: 'Bank Routing Number, required if the method is `ach`'
+          type: string
         accountNumber:
-          description: 'AccountNumber, required if the method is `bank-account`'
-          type: integer
+          description: 'Bank Account Number, required if the method is `ach`'
+          type: string
+          writeOnly: true
         accountType:
-          description: Account Type
+          description: 'Bank Account Type, required if the method is `ach`'
           type: string
         bankName:
           description: Bank name
