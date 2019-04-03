@@ -13909,7 +13909,8 @@
       "PaymentToken": {
         "type": "object",
         "required": [
-          "method"
+          "method",
+          "billingAddress"
         ],
         "properties": {
           "id": {

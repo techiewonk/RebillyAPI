@@ -10142,6 +10142,7 @@ components:
       type: object
       required:
         - method
+        - billingAddress
       properties:
         id:
           description: The token identifier string
