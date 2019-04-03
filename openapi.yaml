@@ -9635,20 +9635,20 @@ components:
         - cash
         - paypal
         - Alipay
-        - AstroPay-Card
+        - AstroPay Card
         - bank-transfer
         - bitcoin
         - Boleto
         - cash-deposit
         - CASHlib
         - CashToCode
-        - China-UnionPay
+        - China UnionPay
         - domestic-cards
         - echeck
         - ecoPayz
         - ecoVoucher
         - EPS
-        - ePay-bg
+        - ePay.bg
         - Flexepin
         - Giropay
         - Gpaysafe
@@ -9676,13 +9676,13 @@ components:
         - Resurs
         - SEPA
         - Skrill
-        - Skrill-Rapid-Transfer
+        - Skrill Rapid Transfer
         - SMSVoucher
         - SparkPay
         - Trustly
         - UPayCard
         - voucher
-        - WeChat-Pay
+        - WeChat Pay
     Payment:
       type: object
       required:
@@ -9940,13 +9940,13 @@ components:
         mapping:
           ach: '#/components/schemas/achInstrument'
           Alipay: '#/components/schemas/AlipayInstrument'
-          AstroPay-Card: '#/components/schemas/AstroPay-CardInstrument'
+          AstroPay Card: '#/components/schemas/AstroPay-CardInstrument'
           bank-account: '#/components/schemas/bank-accountInstrument'
           bitcoin: '#/components/schemas/bitcoinInstrument'
           Boleto: '#/components/schemas/BoletoInstrument'
           cash: '#/components/schemas/cashInstrument'
-          China-UnionPay: '#/components/schemas/China-UnionPayInstrument'
-          ePay: '#/components/schemas/ePay-bgInstrument'
+          China UnionPay: '#/components/schemas/China-UnionPayInstrument'
+          ePay.bg: '#/components/schemas/ePay-bgInstrument'
           EPS: '#/components/schemas/EPSInstrument'
           Flexepin: '#/components/schemas/FlexepinInstrument'
           iDEAL: '#/components/schemas/iDEALInstrument'
@@ -9954,10 +9954,10 @@ components:
           payment-card: '#/components/schemas/payment-cardInstrument'
           paypal: '#/components/schemas/paypalInstrument'
           QQPay: '#/components/schemas/QQPayInstrument'
-          Skrill-Rapid-Transfer: '#/components/schemas/Skrill-Rapid-TransferInstrument'
+          Skrill Rapid Transfer: '#/components/schemas/Skrill-Rapid-TransferInstrument'
           SMSVoucher: '#/components/schemas/SMSVoucherInstrument'
           UPayCard: '#/components/schemas/UPayCardInstrument'
-          WeChat-Pay: '#/components/schemas/WeChat-PayInstrument'
+          WeChat Pay: '#/components/schemas/WeChat-PayInstrument'
       properties:
         method:
           $ref: '#/components/schemas/Method'
