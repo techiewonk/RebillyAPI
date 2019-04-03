@@ -1,6 +1,7 @@
 type: object
 required:
   - method
+  - billingAddress
 properties:
   id:
     description: The token identifier string
@@ -16,7 +17,6 @@ properties:
     $ref: "#/components/schemas/Method"
   paymentInstrument:
     description: The payment instrument details, if appropriate based on the method.
-    writeOnly: true
     allOf:
       - $ref: "#/components/schemas/PaymentTokenInstrument"
   fingerprint:
@@ -27,7 +27,25 @@ properties:
     allOf:
       - $ref: "#/components/schemas/ContactObject"
   leadSource:
-    $ref: "#/components/schemas/LeadSource"
+    allOf:
+      - $ref: "#/components/schemas/LeadSource"
+    writeOnly: true
+  createdTime:
+    description: Token created time
+    allOf:
+      - $ref: "#/components/schemas/ServerTimestamp"
+  updatedTime:
+    description: Token updated time
+    allOf:
+      - $ref: "#/components/schemas/ServerTimestamp"
+  usageTime:
+    description: Token usage time
+    allOf:
+      - $ref: "#/components/schemas/ServerTimestamp"
+  expirationTime:
+    description: Token expiration time
+    allOf:
+      - $ref: "#/components/schemas/ServerTimestamp"
   _links:
     type: array
     description: The links related to resource
