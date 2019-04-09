@@ -12361,6 +12361,8 @@ components:
             - dispute-created
             - dispute-won
             - dispute-lost
+            - dispute-responded
+            - dispute-forfeited
             - gateway-response-received
             - transaction-scheduled-time-changed
             - transaction-rules-processed
