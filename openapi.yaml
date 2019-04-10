@@ -4330,13 +4330,6 @@ paths:
                 expYear:
                   description: Card's expiry year
                   type: string
-                status:
-                  description: Card's status
-                  type: string
-                  enum:
-                    - active
-                    - inactive
-                    - deactivated
                 billingAddress:
                   description: Card's billing address
                   allOf:
