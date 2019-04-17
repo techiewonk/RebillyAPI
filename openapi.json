@@ -17315,11 +17315,14 @@
             "enum": [
               "completed",
               "connection-error",
+              "disputed",
               "never-sent",
               "pending",
+              "refunded",
               "sending",
               "suspended",
               "timeout",
+              "voided",
               "waiting-capture",
               "waiting-refund"
             ]
