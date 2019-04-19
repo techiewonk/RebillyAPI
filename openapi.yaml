@@ -8283,7 +8283,7 @@ components:
           type: string
           enum:
             - password
-            - password-less
+            - passwordless
           writeOnly: true
           default: password
         credentialId:
